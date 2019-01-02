@@ -95,7 +95,7 @@ if(isset($_POST['submit']))
         $result = \Database\Verifications\exists($phoneInstance);
         if($result !== false) {
             if($result['type'] === \Database\Verifications\EXISTS_RUNNING) {
-                return header('Location: ' . DOMAIN . '/submit.php?id=' . $hashids->encode([$result['verification']->id]));
+                return header('Location: ' . DOMAIN . '/submit.php?id=' . \Helper\getId($result['verification']->id));
             } else {
                 $submitErrors['disbursed'] = $result['verification'];
             }
@@ -104,7 +104,7 @@ if(isset($_POST['submit']))
 
     if(count($submitErrors) === 0) {
         $verification = \Database\Verifications\addVerification($phoneInstance, $data, $countries[$data['iso']]['number']);
-        return header('Location: ' . DOMAIN . '/submit.php?id=' . $hashids->encode([$verification->id]));
+        return header('Location: ' . DOMAIN . '/submit.php?id=' . \Helper\getId($verification->id));
     }
 }
 
@@ -149,15 +149,15 @@ $_SESSION["crsf_index"] = md5(uniqid(mt_rand(), true));
                 <p class="error">There was an ongoing request for the provided phone number, but you entered the code wrong at least 3 times. Wait at least 60 minutes to try again.</p>
             <?php else: ?>
                 <?php if($submitErrors['running']->twilio_uuid !== null) : ?>
-                <p class="error">There is an ongoing request four your phone number. <a href="verify.php?id=<?=$hashids->encode([$submitErrors['running']->id])?>">Click here</a> to go to the verification page.</p>
+                <p class="error">There is an ongoing request four your phone number. <a href="verify.php?id=<?=\Helper\getId($submitErrors['running']->id)?>">Click here</a> to go to the verification page.</p>
                 <?php else: ?>
-                <p class="error">There is an ongoing request four your phone number. <a href="submit.php?id=<?=$hashids->encode([$submitErrors['running']->id])?>">Click here</a> to go to the submission page.</p>
+                <p class="error">There is an ongoing request four your phone number. <a href="submit.php?id=<?=\Helper\getId($submitErrors['running']->id)?>">Click here</a> to go to the submission page.</p>
                 <?php endif; ?>
         <?php endif; ?>
 
         <?php endif; ?>
         <?php if(isset($submitErrors['disbursed'])): ?>
-            <p class="error">This number was already used to successfully request a PASA. <a href="success.php?id=<?=$hashids->encode([$submitErrors['disbursed']->id])?>">Click here</a> to see the disburse info.</p>
+            <p class="error">This number was already used to successfully request a PASA. <a href="success.php?id=<?=\Helper\getId($submitErrors['disbursed']->id)?>">Click here</a> to see the disburse info.</p>
         <?php endif; ?>
 
         <!-- The above form looks like this -->

@@ -15,7 +15,7 @@ if($verification === false) {
 }
 
 if($verification->verification_success == 1) {
-    return header('Location: ' . DOMAIN . '/success.php?id=' . $hashids->encode([$verification->id]));
+    return header('Location: ' . DOMAIN . '/success.php?id=' . \Helper\getId($verification->id));
 }
 
 if((int)$verification->tries >= 3) {
@@ -45,7 +45,7 @@ if(isset($_POST['submit']))
         }
 
 
-        return header('Location: ' . DOMAIN . '/success.php?id=' . $hashids->encode([$verification->id]));
+        return header('Location: ' . DOMAIN . '/success.php?id=' . \Helper\getId($verification->id));
     }
     \Database\Verifications\updateTries($verification->id);
     $error = $verificationResult . '. Please try again.';
