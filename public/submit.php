@@ -28,16 +28,10 @@ if(isset($_POST['submit'])) {
             \Database\Verifications\setVerificationData($verification->id, $data['uuid'], $data['seconds']);
             return header('Location: ' . DOMAIN . '/verify.php?id=' . $verificationIdEncoded);
         } else {
-            echo 'A';
-            var_dump($data);
-            exit;
             return header('Location: ' . DOMAIN . '/?error=true&code=verification');
         }
     }
     catch(\Exception $ex) {
-        echo 'B';
-        var_dump($ex);
-        exit;
         return header('Location: ' . DOMAIN . '/?error=true&code=verification');
     }
 }
