@@ -18,7 +18,6 @@
     "autoload": {
         "files": [
             "database_verifications.php",
-            "database_quiz.php",
             "helper.php",
             "twilio.php",
             "pascal.php"
