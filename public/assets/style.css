@@ -1,0 +1,140 @@
+html, body {
+    box-sizing: border-box;
+}
+.head {
+    vertical-align: middle;
+}
+.head img {
+    margin: 10px;
+}
+.head a {
+    display: block;
+    text-align: center;
+}
+.head .title {
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    white-space: nowrap;
+    display: block;
+    text-align: center;
+}
+
+@media (min-width: 750px) {
+    .head a {
+        text-align: left;
+        float: none;
+    }
+    .head a img {
+        float: left;
+    }
+    .head .title {
+        float: right;
+        line-height: 80px;
+    }
+}
+
+
+.info-top {
+    background: #f79321;
+    color: white;
+    margin-top: 0px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.info-top .headline {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.error {
+    color: darkred;
+}
+
+.error-info {
+    background-color: #2f3542;
+    color: white;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+
+.question-correct-info {
+    background-color: #2f3542;
+    color: white;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
+
+.question-wrong-info {
+    background-color: #f0f0f0;
+    color: red;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-weight: normal;
+}
+
+.trivia {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+input:not([type="submit"]), select, textarea {
+    border-radius: 0 !important;
+    font-family: monospace;
+}
+
+code {
+    white-space: pre-wrap; /* CSS 2.1 */
+    white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+    word-wrap: break-word; /* IE */
+    word-break: break-all;
+    display:inline-block;
+    font-weight: bold;
+    border-radius: 0;
+    padding: 10px;
+    border-width: 0;
+    display: block;
+}
+
+.container.content {
+    margin-top: 10px;
+}
+
+footer {
+    background-color: #f79321;
+    bottom: 0;
+    left: 0;
+    right:0;
+    height: 80px;
+    color: white;
+    line-height: 40px;
+    cursor: pointer;
+}
+@media (min-width: 750px) {
+    footer {
+        position: fixed;
+        height: 40px;
+    }
+    html, body {
+        margin-bottom: 40px;
+    }
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
+}
+footer a:hover {
+    text-decoration: underline;
+    color: white;
+}
+
+.button-primary {
+    border-radius: 0 !important;
+}
+
+h2 {
+    font-size: 2em;
+}

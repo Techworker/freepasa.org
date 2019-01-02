@@ -1,0 +1,27 @@
+{
+    "name": "root/pasa",
+    "authors": [
+        {
+            "name": "Benjamin Ansbach",
+            "email": "benjamin.ansbach@zandura.net"
+        }
+    ],
+    "require": {
+        "twilio/sdk": "^5.27",
+        "authy/php": "^3.0",
+        "j4mie/idiorm": "^1.5",
+        "giggsey/libphonenumber-for-php": "^8.10",
+        "umpirsky/country-list": "^2.0",
+        "hashids/hashids": "^3.0",
+        "vlucas/phpdotenv": "^2.5"
+    },
+    "autoload": {
+        "files": [
+            "database_verifications.php",
+            "database_quiz.php",
+            "helper.php",
+            "twilio.php",
+            "pascal.php"
+        ]
+    }
+}
