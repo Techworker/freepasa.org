@@ -74,14 +74,15 @@ function getDisbursableAccount()
 function sendPasa($b58Pubkey, $last4)
 {
     $account = getDisbursableAccount();
-    addPascalToAccount($account['account']);
     $result = rpc('changekey', [
         'account' => $account['account'],
         'account_signer' => ACCOUNT_SIGNER,
         'new_b58_pubkey' => $b58Pubkey,
-        'payload' => encodePayload('PASA FAUCET for *******' . $last4),
+        'payload' => encodePayload('freepasa.org'),
         'payload_method' => 'none'
     ]);
+
+    addPascalToAccount($account['account']);
 
     return [
         'ophash' => $result['ophash'],
@@ -112,7 +113,7 @@ function addPascalToAccount($account)
                 'target' => ACCOUNT_FAUCET,
                 'sender' => $account,
                 'amount' => (($balance * 10000) - (FAUCET_AMOUNT)) / 10000,
-                'payload' => encodePayload('SB'),
+                'payload' => encodePayload('freepasa.org startup help'),
                 'payload_method' => 'none'
             ]);
         } else {
@@ -121,7 +122,7 @@ function addPascalToAccount($account)
                 'target' => $account,
                 'sender' => ACCOUNT_FAUCET,
                 'amount' => (FAUCET_AMOUNT / 10000) - $balance,
-                'payload' => encodePayload('FAUCET'),
+                'payload' => encodePayload('freepasa.org startup help'),
                 'payload_method' => 'none'
             ]);
         }
@@ -130,7 +131,7 @@ function addPascalToAccount($account)
             'target' => $account,
             'sender' => ACCOUNT_FAUCET,
             'amount' => FAUCET_AMOUNT / 10000,
-            'payload' => encodePayload('FAUCET'),
+            'payload' => encodePayload('freepasa.org startup help'),
             'payload_method' => 'none'
         ]);
     }
@@ -144,7 +145,7 @@ function sendAffiliate($affiliateAccount, $disbursedAccount)
         'target' => $affiliateAccount,
         'sender' => ACCOUNT_AFFILIATE,
         'amount' => AFFILIATE_AMOUNT / 10000,
-        'payload' => encodePayload('AFF ' . $disbursedAccount),
+        'payload' => encodePayload('affiliate for ' . $disbursedAccount),
         'payload_method' => 'none'
     ]);
 
