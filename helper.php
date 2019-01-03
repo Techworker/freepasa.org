@@ -15,7 +15,7 @@ function sendJson($data) {
 
 function getId($encoded) {
     global $hashids;
-    $ids = $hashids->decode($encoded);
+    $ids = $hashids->decode([$encoded]);
     if(count($ids) > 0) {
         return $ids[0];
     }
