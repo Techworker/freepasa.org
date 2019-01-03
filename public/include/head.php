@@ -22,7 +22,7 @@
                 freepasa.org
                 <small><small>
                         Block: <?=$nodeStatus['blocks']?>
-                        <?php if(DEBUG): ?>TESTNET<?php endif; ?>
+                        <?php if(DEBUG): ?><?=$nodeStatus['version']?><?php endif; ?>
                     </small></small>
             </div>
         </div>
