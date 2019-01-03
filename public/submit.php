@@ -3,7 +3,7 @@
 include __DIR__ . './../bootstrap.php';
 
 $verificationIdEncoded = $_GET['id'];
-$verificationId = \Helper\getId($verificationIdEncoded);
+$verificationId = \Helper\decodeId($verificationIdEncoded);
 if($verificationId === null) {
     return header('Location: ' . DOMAIN . '/?error=true&code=not_found');
 }

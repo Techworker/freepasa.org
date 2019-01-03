@@ -13,12 +13,17 @@ function sendJson($data) {
 }
 
 
-function getId($encoded) {
+function decodeId($encoded) {
     global $hashids;
-    $ids = $hashids->decode([$encoded]);
+    $ids = $hashids->decode($encoded);
     if(count($ids) > 0) {
         return $ids[0];
     }
 
     return null;
+}
+
+function encodeId($id) {
+    global $hashids;
+    return $hashids->encode($id);
 }

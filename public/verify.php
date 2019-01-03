@@ -3,7 +3,7 @@
 include __DIR__ . './../bootstrap.php';
 
 $verificationIdEncoded = $_GET['id'];
-$verificationId = \Helper\getId($verificationIdEncoded);
+$verificationId = \Helper\decodeId($verificationIdEncoded);
 if($verificationId === null) {
     return header('Location: ' . DOMAIN . '/?error=true&code=not_found');
 }
@@ -15,7 +15,7 @@ if($verification === false) {
 }
 
 if($verification->verification_success == 1) {
-    return header('Location: ' . DOMAIN . '/success.php?id=' . \Helper\getId($verification->id));
+    return header('Location: ' . DOMAIN . '/success.php?id=' . \Helper\encodeId($verification->id));
 }
 
 if((int)$verification->tries >= 3) {
@@ -45,7 +45,7 @@ if(isset($_POST['submit']))
         }
 
 
-        return header('Location: ' . DOMAIN . '/success.php?id=' . \Helper\getId($verification->id));
+        return header('Location: ' . DOMAIN . '/success.php?id=' . \Helper\encodeId($verification->id));
     }
     \Database\Verifications\updateTries($verification->id);
     $error = $verificationResult . '. Please try again.';

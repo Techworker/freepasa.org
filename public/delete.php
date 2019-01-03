@@ -7,7 +7,7 @@ if(DEBUG === false) {
 }
 
 $verificationIdEncoded = $_GET['id'];
-$verificationId = \Helper\getId($verificationIdEncoded);
+$verificationId = \Helper\decodeId($verificationIdEncoded);
 if($verificationId === null) {
     die('not found');
 }
