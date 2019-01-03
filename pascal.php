@@ -113,7 +113,7 @@ function addPascalToAccount($account)
                 'target' => ACCOUNT_FAUCET,
                 'sender' => $account,
                 'amount' => (($balance * 10000) - (FAUCET_AMOUNT)) / 10000,
-                'payload' => encodePayload('freepasa.org startup help'),
+                'payload' => encodePayload('freepasa.org / getting started with 0.0010'),
                 'payload_method' => 'none'
             ]);
         } else {
@@ -122,7 +122,7 @@ function addPascalToAccount($account)
                 'target' => $account,
                 'sender' => ACCOUNT_FAUCET,
                 'amount' => (FAUCET_AMOUNT / 10000) - $balance,
-                'payload' => encodePayload('freepasa.org startup help'),
+                'payload' => encodePayload('freepasa.org / getting started with 0.0010'),
                 'payload_method' => 'none'
             ]);
         }
@@ -131,7 +131,7 @@ function addPascalToAccount($account)
             'target' => $account,
             'sender' => ACCOUNT_FAUCET,
             'amount' => FAUCET_AMOUNT / 10000,
-            'payload' => encodePayload('freepasa.org startup help'),
+            'payload' => encodePayload('freepasa.org / getting started with 0.0010'),
             'payload_method' => 'none'
         ]);
     }
