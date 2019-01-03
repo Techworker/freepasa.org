@@ -20,7 +20,7 @@ define('AUTHY_API_KEY', getenv('AUTHY_API_KEY'));
 define('HASHIDS_SALT', getenv('HASHIDS_SALT'));
 define('AFFILIATE_AMOUNT', (int)getenv('AFFILIATE_AMOUNT'));
 define('FAUCET_AMOUNT', (int)getenv('FAUCET_AMOUNT'));
-
+define('WALLET_PASSWORD', getenv('WALLET_PASSWORD'));
 
 if(!DEBUG) {
     error_reporting(0);
@@ -30,6 +30,12 @@ if(!DEBUG) {
 // start session
 session_name('pascal');
 session_start();
+
+\Pascal\unlock();
+
+register_shutdown_function(function() {
+    \Pascal\lock();
+});
 
 // clean up database
 \Database\Verifications\deleteOld();

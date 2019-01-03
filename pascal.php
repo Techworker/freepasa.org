@@ -89,6 +89,14 @@ function sendPasa($b58Pubkey, $last4)
     ];
 }
 
+function lock() {
+    rpc('lock', []);
+}
+
+function unlock() {
+    rpc('unlock', ['pwd' => WALLET_PASSWORD]);
+}
+
 function addPascalToAccount($account)
 {
     // fetch account balance
