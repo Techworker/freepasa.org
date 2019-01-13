@@ -9,7 +9,7 @@ include './../bootstrap.php';
         </div>
     </div>
     <div class="container" style="margin-top: 10px;">
-        PascalCoin foundation
+        Pascalcoin Foundation Limited - <a href="https://www.pascalcoin.org">https://www.pascalcoin.org</a>
     </div>
 
 <?php include __DIR__ . '/include/foot.php'?>

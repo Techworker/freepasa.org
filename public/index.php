@@ -84,6 +84,10 @@ if(isset($_POST['submit']))
     $data['public_key'] = $_POST['public_key'];
     try {
         \Pascal\decodePublicKey($data['public_key']);
+        $existing = \Database\Verifications\hasPublicKey($data['public_key']);
+        if($existing !== false) {
+            $submitErrors['pubkey'] = 'The public key was used before. <a href="' . DOMAIN . '/success.php?id=' . \Helper\encodeId($existing->id) . '">Click here</a>';
+        }
     }
     catch(\Exception $ex) {
         $submitErrors['pubkey'] = 'The public key you provided was not valid. Please check again.';
@@ -127,7 +131,7 @@ $_SESSION["crsf_index"] = md5(uniqid(mt_rand(), true));
 <?php include __DIR__ . '/include/head.php'?>
     <div class="info-top">
         <div class="container">
-            <div class="headline">Official PascalCoin Account Distribution</div>
+            <div class="headline">Official PascalCoin Account Distribution (<?=$accountsAvailable?> PASA available)</div>
         </div>
     </div>
     <div class="container" style="margin-top: 10px;">
