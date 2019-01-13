@@ -18,7 +18,7 @@ if($verification !== false) {
     echo json_encode([
         'used' => true,
         'pasa' => $verification->pasa,
-        'date' => $verification->ts
+        'date' => $verification->dt
     ]);
     return;
 } else {
