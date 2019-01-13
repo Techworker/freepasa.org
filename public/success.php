@@ -50,7 +50,10 @@ if($verification === false) {
         <strong>Pasa:</strong>
     </p>
     <code><?=\Pascal\withChecksum($verification->pasa) ?></code>
-
+    <p style="margin-bottom: 0">
+        <strong>Public Key:</strong>
+    </p>
+    <code><?=$verification->b58_pubkey ?></code>
     <p style="margin-bottom: 0">
         <strong>Block:</strong>
     </p>

@@ -214,6 +214,21 @@ function addVerification(PhoneNumber $phone, array $data, int $countryNumber)
 }
 
 /**
+ * Checks whether the public key was already used.
+ *
+ * @param string $publicKey
+ * @return \ORM
+ * @throws \Exception
+ */
+function hasPublicKey($publicKey)
+{
+    return \ORM::forTable('verifications')
+        ->where('b58_pubkey', $publicKey)
+        ->where('verification_success', 1)
+        ->findOne();
+}
+
+/**
  * Sets the twilio UUID.
  *
  * @param int $verificationId

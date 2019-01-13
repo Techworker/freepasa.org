@@ -44,6 +44,7 @@ register_shutdown_function(function() {
 try {
     $nodeStatus = \Pascal\nodeStatus();
     $nodeAccount = \Pascal\getAccount(ACCOUNT_SIGNER);
+    $accountsAvailable = \Pascal\getWalletAccountsCount() - 3;
 }
 catch(\Exception $ex) {
     die('Node not running, please inform an admin on discord.');
