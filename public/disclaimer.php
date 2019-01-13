@@ -17,8 +17,9 @@ include './../bootstrap.php';
         <p>This page uses cookies to secure the page against CRSF attacks. It will not contain any personal information.</p>
         <h2>Privacy</h2>
         <p>Your phone number will be transferred to twilio.com to provide the SMS verification service.</p>
-        <p>If your verification was successful, your phone number will be encrypted and cannot be decrypted anymore.</p>
-        <p>If you cancel the process, your phone number will be deleted after 1 hour.</p>
+        <p>If your verification was successful, your phone number will be hashed and cannot be unhashed anymore.</p>
+        <p>The hashed phone number will be used detect duplicate request attempts.</p>
+        <p>If you cancel the process or it failed, your phone number will be deleted after 1 hour.</p>
         <h2>Other</h2>
         <p>As this is a free of charge service, please get in touch with the owner personally before getting in touch with him legally. Thanks.</p>
     </div>

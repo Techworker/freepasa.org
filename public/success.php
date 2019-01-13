@@ -51,6 +51,10 @@ if($verification === false) {
     </p>
     <code><?=\Pascal\withChecksum($verification->pasa) ?></code>
     <p style="margin-bottom: 0">
+        <strong>Date:</strong>
+    </p>
+    <code><?=date('Y-m-d H:i:s', $verification->dt) ?></code>
+    <p style="margin-bottom: 0">
         <strong>Public Key:</strong>
     </p>
     <code><?=$verification->b58_pubkey ?></code>

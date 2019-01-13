@@ -9,7 +9,8 @@ include './../bootstrap.php';
         </div>
     </div>
     <div class="container" style="margin-top: 10px;">
-        <p><?=DOMAIN?> runs an affiliate program that you can use to earn some PascalCoin by linking to the page.</p>
+        <p><?=DOMAIN?> runs an affiliate program that you can use to earn some PascalCoin by linking to this page.</p>
+        <p class="error-info"><i class="fas fa-exclamation-circle"></i> The payout amount is <?=(AFFILIATE_AMOUNT/10000)?> PASC for each successfully distributed pasa right now. This value might vary in the future without any further notice.</p>
         <p class="error-info"><i class="fas fa-exclamation-circle"></i> The affiliate program is active as long as there are funds available to run it. It can be closed down without any further notice.</p>
         <p>
             The minimum required parameter to earn money is the <code style="display: inline-block">afac</code> parameter. This the account number
