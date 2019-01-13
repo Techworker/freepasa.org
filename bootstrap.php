@@ -31,8 +31,6 @@ if(!DEBUG) {
 session_name('pascal');
 session_start();
 
-\Pascal\unlock();
-
 register_shutdown_function(function() {
     \Pascal\lock();
 });
@@ -48,8 +46,13 @@ try {
     $accountsAvailable = \Pascal\getWalletAccountsCount() - $ctSystem;
 }
 catch(\Exception $ex) {
+    header('HTTP/1.1 503 Service Temporarily Unavailable');
+    header('Status: 503 Service Temporarily Unavailable');
+    header('Retry-After: 300');//300 seconds
     die('Node not running, please inform an admin on discord.');
 }
+
+\Pascal\unlock();
 
 foreach($_POST as $key => $value) {
     $_POST[$key] = trim($value);
