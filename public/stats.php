@@ -18,6 +18,7 @@ $records = \Database\Verifications\getDisbursed();
             <tr>
                 <th>PASA</th>
                 <th>Date</th>
+                <th>Affiliate</th>
                 <th>#</th>
             </tr>
             </thead>
@@ -26,6 +27,7 @@ $records = \Database\Verifications\getDisbursed();
                 <tr>
                     <td><?=\Pascal\withChecksum($record->pasa) ?></td>
                     <td><?=date('y-m-d H:i:s', $record->dt)?></td>
+                    <td><?=$record->affiliate_account?></td>
                     <td><a href="http://explorer.pascalcoin.org/findoperation.php?ophash=<?=$record->ophash?>" target="_blank">&raquo; view</a></td>
                 </tr>
 <?php endforeach; ?>
