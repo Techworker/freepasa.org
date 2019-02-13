@@ -8,7 +8,7 @@ include './../bootstrap.php';
             <div class="headline">Developer Integration</div>
         </div>
     </div>
-    <div class="container" style="margin-top: 10px;">
+    <div class="container" style="margin-top: 30px;">
         <p><?=DOMAIN?> can be used to obtain a free PASA for your users.
         It can be used by exchanges or wallet developers or any other PascalCoin
         related software that needs their users to have a PascalCoin account.

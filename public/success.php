@@ -19,26 +19,29 @@ if($verification === false) {
 <?php include __DIR__ . '/include/head.php'?>
 <div class="info-top">
     <div class="container">
-        <strong>Congratulations!</strong>
+        <div class="headline">Congratulations!</div>
     </div>
 </div>
-<div class="container" style="margin-top: 10px;">
+<div class="container" style="margin-top: 30px;">
     <p>
         PASA <strong><?=\Pascal\withChecksum($verification->pasa) ?></strong> was sent to the submitted public key.
         <?php if($verification->block !== null) : ?>
             It was mined in block <?=$verification->block?>.
         <?php else: ?>
-            It will be available when the next block is mined. <a href="<?=DOMAIN?>/success.php?id=<?=$_GET['id']?>">Refresh page</a>.
+            It will be available when the next block is mined.
         <?php endif; ?>
+        <br />We also sent <strong>0.0010 PASC</strong> to your account to get you started.
     </p>
     <?php if(DEBUG) : ?>
     <button class="button-primary" onclick="window.location.href='delete.php?id=<?=$_GET['id']?>'">DELETE</button>
     <?php endif; ?>
 
+    <button class="button-primary" onclick="window.location.href='<?=DOMAIN?>/success.php?id=<?=$_GET['id']?>'">Refresh page</button>
     <?php if($verification->redirect !== '') : ?>
             <p style="margin-bottom: 0">Your service requested to be redirected. Click the button to get redirected:</p>
             <button class="button-primary" onclick="window.location.href='<?=$verification->redirect?>?state=<?=$verification->state?>&pasa=<?=$verification->pasa?>&ophash=<?=$verification->ophash?>&block=<?=$verification->block?>&id=<?=$_GET['id']?>'">Redirect</button>
     <?php endif; ?>
+    <button class="button-primary" onclick="window.location.href='<?=DOMAIN?>/success.php?id=<?=$_GET['id']?>'" style=" display: block; line-height: 25px; background-color: #7289DA; border-color: #7289DA;"><img src="/assets/Discord-Logo-White.svg" style="height: 25px; float: left;">&nbsp;JOIN US ON DISCORD!</button>
 
     <p><b>Transaction details:</b></p>
     <p style="margin-bottom: 0">
@@ -50,6 +53,7 @@ if($verification === false) {
         <strong>Pasa:</strong>
     </p>
     <code><?=\Pascal\withChecksum($verification->pasa) ?></code>
+    <a href="http://new-explorer.pascalcoin.org/accounts/<?=$verification->pasa?>">view PASA in explorer</a>
     <p style="margin-bottom: 0">
         <strong>Date:</strong>
     </p>
@@ -63,14 +67,11 @@ if($verification === false) {
     </p>
     <code><?php if($verification->block !== null) : ?><?=$verification->block?><?php else: ?>Block not mined yet, <a href="<?=DOMAIN?>/success.php?id=<?=$_GET['id']?>">refresh page</a>.<?php endif; ?></code>
     <?php if($verification->block !== null) :?>
-        <a href="http://explorer.pascalcoin.org/block.php?block=<?=$verification->block?>">view in explorer</a>
+        <a href="http://new-explorer.pascalcoin.org/blocks/<?=$verification->block?>">view block in explorer</a>
     <?php endif; ?>
     <p style="margin-bottom: 0"><strong>OpHash:</strong></p>
     <code><?=$verification->ophash ?></code>
-    <a href="http://explorer.pascalcoin.org/findoperation.php?ophash=<?=$verification->ophash?>">view in explorer</a>
-
-    <br /><br />
-    <p class="error-info">Now visit <a href="http://www.pascalcoin.org">http://www.pascalcoin.org</a> to learn what you can do with it now.</p>
+    <a href="http://new-explorer.pascalcoin.org/operations/<?=$verification->ophash?>">view operation in explorer</a>
 
 </div>
 <?php include __DIR__ . '/include/foot.php'?>

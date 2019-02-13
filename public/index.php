@@ -86,7 +86,7 @@ if(isset($_POST['submit']))
         \Pascal\decodePublicKey($data['public_key']);
         $existing = \Database\Verifications\hasPublicKey($data['public_key']);
         if($existing !== false) {
-            $submitErrors['pubkey'] = 'The public key was used before. <a href="' . DOMAIN . '/success.php?id=' . \Helper\encodeId($existing->id) . '">Click here</a>';
+            $submitErrors['pubkey'] = 'The public key was used before. <a href="' . DOMAIN . '/success.php?id=' . \Helper\encodeId($existing->id) . '">Click here to see the distributed pasa.</a>';
         }
     }
     catch(\Exception $ex) {
@@ -128,13 +128,12 @@ if(isset($_GET['error'])) {
 $_SESSION["crsf_index"] = md5(uniqid(mt_rand(), true));
 
 ?>
+<?php
+$headTitle = 'Official PascalCoin Account Distribution';
+$headSubTitle = 'We have ' . $accountsAvailable . ' PASA free to disburse!';
+?>
 <?php include __DIR__ . '/include/head.php'?>
-    <div class="info-top">
-        <div class="container">
-            <div class="headline">Official PascalCoin Account Distribution (<?=$accountsAvailable?> PASA available)</div>
-        </div>
-    </div>
-    <div class="container" style="margin-top: 10px;">
+    <div class="container" style="margin-top: 30px;">
         <p>Please enter your phone number and your public key and follow the instructions to get a free PascalCoin PASA account. We will send a verification code to your provided phone number.</p>
         <p>For more info about privacy concerns see <a href="<?=DOMAIN?>/about.php">here</a>.</p>
         <?php if(count($submitErrors) > 0) : ?>
@@ -163,7 +162,6 @@ $_SESSION["crsf_index"] = md5(uniqid(mt_rand(), true));
         <?php if(isset($submitErrors['disbursed'])): ?>
             <p class="error">This number was already used to successfully request a PASA. <a href="success.php?id=<?=\Helper\encodeId($submitErrors['disbursed']->id)?>">Click here</a> to see the disburse info.</p>
         <?php endif; ?>
-
         <!-- The above form looks like this -->
         <form method="post" action="<?=DOMAIN?>">
             <input type="hidden" name="crsf" value="<?=htmlentities($_SESSION["crsf_index"])?>" />
@@ -195,6 +193,6 @@ $_SESSION["crsf_index"] = md5(uniqid(mt_rand(), true));
             <?php endif; ?>
             <input class="button-primary u-pull-right" type="submit" name="submit" value="Send verification code">
     </form>
-</div>
+    </div>
 
 <?php include __DIR__ . '/include/foot.php'?>

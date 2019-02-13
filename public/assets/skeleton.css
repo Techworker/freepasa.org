@@ -158,7 +158,7 @@ p {
 /* Links
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 a {
-  color: #f7af21; }
+  color: #0FA0CE; }
 a:hover {
   color: #0FA0CE; }
 
@@ -206,8 +206,8 @@ input[type="submit"].button-primary,
 input[type="reset"].button-primary,
 input[type="button"].button-primary {
   color: #FFF;
-  background-color: #f79321;
-  border-color: #f79321; }
+  background-color: #2f3542;
+  border-color: #2f3542; }
 .button.button-primary:hover,
 button.button-primary:hover,
 input[type="submit"].button-primary:hover,
@@ -219,8 +219,8 @@ input[type="submit"].button-primary:focus,
 input[type="reset"].button-primary:focus,
 input[type="button"].button-primary:focus {
   color: #FFF;
-  background-color: #f7af21;
-  border-color: #f7af21; }
+  background-color: #2f3542;
+  border-color: #2f3542; }
 
 
 /* Forms

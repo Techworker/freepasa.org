@@ -18,7 +18,8 @@ $records = \Database\Verifications\getDisbursed();
             <tr>
                 <th>PASA</th>
                 <th>Date</th>
-                <th>Affiliate</th>
+                <th>Block</th>
+                <th>Affiliate Account</th>
                 <th>#</th>
             </tr>
             </thead>
@@ -26,9 +27,16 @@ $records = \Database\Verifications\getDisbursed();
             <?php foreach ($records as $record) : ?>
                 <tr>
                     <td><?=\Pascal\withChecksum($record->pasa) ?></td>
-                    <td><?=date('y-m-d H:i:s', $record->dt)?></td>
-                    <td><?=$record->affiliate_account?></td>
-                    <td><a href="http://explorer.pascalcoin.org/findoperation.php?ophash=<?=$record->ophash?>" target="_blank">&raquo; view</a></td>
+                    <td><?=date('Y-m-d H:i:s', $record->dt)?></td>
+                    <td><a href="http://new-explorer.pascalcoin.org/blocks/<?=$record->block?>" target="_blank">&raquo; <?=$record->block?></a></td>
+                    <td>
+                        <?php if($record->affiliate_account > 0) : ?>
+                        <a href="http://new-explorer.pascalcoin.org/operation/<?=$record->affiliate_ophash?>" target="_blank">&raquo;<?=\Pascal\withChecksum($record->affiliate_account)?></a>
+                        <?php else: ?>
+                        [x]
+                        <?php endif; ?>
+                    </td>
+                    <td><a href="http://new-explorer.pascalcoin.org/operation/<?=$record->ophash?>" target="_blank">&raquo; view</a></td>
                 </tr>
 <?php endforeach; ?>
             </tbody>

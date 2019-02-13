@@ -8,7 +8,7 @@ include './../bootstrap.php';
             <div class="headline">Disclaimer</div>
         </div>
     </div>
-    <div class="container" style="margin-top: 10px;">
+    <div class="container" style="margin-top: 30px;">
         <h2>General</h2>
         <p>This is a free of charge service. In case of technical problems or run out funds the visitor is not entitled to get anything until the problem is fixed.</p>
         <h2>Affiliate</h2>

@@ -4,25 +4,12 @@ include './../../bootstrap.php';
 
 header('Content-Type: application/json');
 
-if(!isset($_GET['afac'])) {
-    echo json_encode([
-        'success' => false,
-        'error' => 'Missing afac parameter'
-    ]);
-
-    return;
-}
-
-$afac = (int)$_GET['afac'];
-if($afac === 0) {
-    die('no');
-}
-
-$verifications = \Database\Verifications\getAffiliateVerifications($afac);
+$verifications = \Database\Verifications\getDisbursed();
 $data = [];
 foreach($verifications as $verification) {
     $data[] = [
         'time' => $verification['dt'],
+        'afac' => $verification['affiliate_account'],
         'block' => $verification['block'],
         'ophash' => $verification['affiliate_ophash'],
         'amount' => $verification['affiliate_amount'] / 10000,

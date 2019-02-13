@@ -1,15 +1,30 @@
 html, body {
     box-sizing: border-box;
 }
+
+.head-outer, .foot-outer {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Cpath fill='%239C92AC' fill-opacity='.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'/%3E%3C/svg%3E");
+    background-position: 0 0!important;
+    background-size: inherit!important;
+    background-color: #2f3542;
+}
+
+.head-outer {
+    box-shadow: 0 4px 18px 0 rgba(0,0,0,.3), 0 7px 10px -5px rgba(0,0,0,.15);
+    margin-bottom: 15px;
+}
+
 .head {
     vertical-align: middle;
+}
+.head-large {
+    height: 240px;
 }
 .head img {
     margin: 10px;
 }
 .head a {
     display: block;
-    text-align: center;
 }
 .head .title {
     color: white;
@@ -17,27 +32,42 @@ html, body {
     font-weight: 700;
     white-space: nowrap;
     display: block;
-    text-align: center;
+}
+
+.head .intro {
+    clear: both;
+    padding-top: 20px;
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'Roboto Slab', serif;
+}
+
+.head .intro-subtitle {
+    color: white;
 }
 
 @media (min-width: 750px) {
+    .head-large {
+        height: 180px;
+    }
     .head a {
         text-align: left;
         float: none;
     }
     .head a img {
         float: left;
+        margin-left: -57px;
     }
     .head .title {
         float: right;
-        line-height: 80px;
+        line-height: 70px;
     }
 }
 
 
 .info-top {
-    background: #f79321;
-    color: white;
+    background: white;
     margin-top: 0px;
     padding-top: 12px;
     padding-bottom: 12px;
@@ -45,18 +75,19 @@ html, body {
 
 .info-top .headline {
     font-weight: bold;
-    font-size: 1.1em;
+    font-size: 1.5em;
+    font-family: 'Roboto Slab', serif;
 }
 
 .error {
-    color: darkred;
+    color: tomato;
 }
 
 .error-info {
-    background-color: #2f3542;
-    color: white;
+    background-color: #f0f0f0;
+    color: #222;
     padding: 10px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 3px 2px 0 rgba(0, 0, 0, 0.1)
 }
 
 .question-correct-info {
@@ -103,11 +134,11 @@ code {
 }
 
 footer {
-    background-color: #f79321;
+    background-color: #2f3542;
     bottom: 0;
     left: 0;
     right:0;
-    height: 120px;
+    min-height: 350px;
     color: white;
     line-height: 40px;
     cursor: pointer;
@@ -115,7 +146,9 @@ footer {
 @media (min-width: 750px) {
     footer {
         position: fixed;
-        height: 80px;
+        min-height: auto;
+        max-height: 160px;
+        height: 160px;
     }
     html, body {
         margin-bottom: 80px;
@@ -137,4 +170,76 @@ footer a:hover {
 
 h2 {
     font-size: 2em;
+}
+
+
+a {
+    text-decoration: none;
+    box-shadow: inset 0 -4px 0 rgba(247, 147, 33, 0.4);
+    color: #222;
+}
+a:hover {
+    text-decoration: none;
+    background: rgba(247, 147, 33, 0.2);
+    color: #222;
+}
+.head a {
+    box-shadow: none;
+}
+
+footer a {
+    text-decoration: none;
+    box-shadow: none;
+}
+a:hover {
+    text-decoration: none;
+    background: rgba(255,255,255, 0.2);
+    color: #222;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px 10px 9px;
+    font-size: 13px;
+    line-height: 18px;
+    text-align: left;
+}
+
+table td {
+    vertical-align: top;
+    border-top: solid 1px #ddd;
+}
+
+table th {
+    padding-top: 9px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+table.condensed th, table.condensed td {
+    padding: 5px 5px 4px;
+}
+
+table.bordered {
+    border-collapse: separate;
+    border: solid 1px #ddd;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+
+table.bordered th + th,
+table.bordered th + td,
+table.bordered td + td {
+    border-left: solid 1px #ddd;
+}
+
+.zebra-striped tbody tr:nth-child(odd) td,
+.zebra-striped tbody tr:nth-child(odd) th {
+    background: #f5f5f5;
 }

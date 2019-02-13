@@ -46,7 +46,7 @@ $_SESSION["crsf_submit"] = md5(uniqid(mt_rand(), true));
         <div class="headline">Verify your input</div>
     </div>
 </div>
-<div class="container" style="margin-top: 10px;">
+<div class="container" style="margin-top: 30px;">
 
 <!-- The above form looks like this -->
     <form method="post" action="<?=DOMAIN?>/submit.php?id=<?=$_GET['id']?>">

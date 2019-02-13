@@ -6,7 +6,8 @@
     <meta name="author" content="Benjamin Ansbach">
     <meta name="description" content="PascalCoin Account distribution service. Get a free PASA and get started with PascalCoin.">
     <title>PascalCoin Account Distribution service</title>
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="shortcut icon" href="https://www.pascalcoin.org/favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:700|Roboto:300,300i,400,400i" rel="stylesheet">
     <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
     <link rel="stylesheet" href="<?=DOMAIN?>/assets/skeleton.css">
     <link rel="stylesheet" href="<?=DOMAIN?>/assets/style.css">
@@ -14,9 +15,9 @@
 </head>
 
 <body>
-<div style="background-color: #2f3542">
+<div class="head-outer">
     <div class="container">
-        <div class="head">
+        <div class="head<?=isset($headTitle) ? ' head-large' : ''?>">
             <a href="<?=DOMAIN?>"><img src="<?=DOMAIN?>/assets/pascalcoin.png" /></a>
             <div class="title">
                 freepasa.org
@@ -25,6 +26,10 @@
                         <?php if(DEBUG): ?><?=$nodeStatus['version']?><?php endif; ?>
                     </small></small>
             </div>
+            <?php if(isset($headTitle)) : ?>
+            <div class="intro"><?=$headTitle?></div>
+            <div class="intro-subtitle"><?=$headSubTitle?></div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

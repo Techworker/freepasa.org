@@ -8,7 +8,7 @@ include './../bootstrap.php';
             <div class="headline">Imprint</div>
         </div>
     </div>
-    <div class="container" style="margin-top: 10px;">
+    <div class="container" style="margin-top: 30px;">
         Pascalcoin Foundation Limited - <a href="https://www.pascalcoin.org">https://www.pascalcoin.org</a>
     </div>
 

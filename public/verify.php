@@ -58,12 +58,12 @@ $_SESSION["crsf_verify"] = md5(uniqid(mt_rand(), true));
 <?php include __DIR__ . '/include/head.php'?>
 <div class="info-top">
     <div class="container">
-        <div class="headline">Check your phone.</div>
+        <div class="headline">Check your phone now.</div>
     </div>
 </div>
-<div class="container" style="margin-top: 10px;">
+<div class="container" style="margin-top: 30px;">
 
-    <p>We sent a SMS with a code to <?=$phoneUtil->format($phoneInstance, \libphonenumber\PhoneNumberFormat::INTERNATIONAL)?>.</p>
+    <p>We sent a SMS with a code to <?=$phoneUtil->format($phoneInstance, \libphonenumber\PhoneNumberFormat::INTERNATIONAL)?>. This can take up to 5 minutes, so please be patient.</p>
 
     <?php if($error !== null) : ?>
         <p class="error-info"><i class="fas fa-exclamation-circle"></i> <?=$error?></p>
