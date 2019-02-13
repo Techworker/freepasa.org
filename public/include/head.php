@@ -9,8 +9,8 @@
     <link rel="shortcut icon" href="https://www.pascalcoin.org/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:700|Roboto:300,300i,400,400i" rel="stylesheet">
     <link rel="stylesheet" href="//cdn.rawgit.com/necolas/normalize.css/master/normalize.css">
-    <link rel="stylesheet" href="<?=DOMAIN?>/assets/skeleton.css">
-    <link rel="stylesheet" href="<?=DOMAIN?>/assets/style.css">
+    <link rel="stylesheet" href="<?=DOMAIN?>/assets/skeleton.css?id=1">
+    <link rel="stylesheet" href="<?=DOMAIN?>/assets/style.css?id=1">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
 
