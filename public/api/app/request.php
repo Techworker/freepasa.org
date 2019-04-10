@@ -1,5 +1,7 @@
 <?php
 
+throw new \Exception('inactive');
+
 include './../../../bootstrap.php';
 
 header('Content-Type: application/json');

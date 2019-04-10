@@ -1,5 +1,7 @@
 <?php
 
+throw new \Exception('inactive');
+
 use function Twilio\sendVerificationCode;
 
 include './../../../bootstrap.php';
