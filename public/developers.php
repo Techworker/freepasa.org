@@ -5,122 +5,100 @@ include './../bootstrap.php';
 <?php include __DIR__ . '/include/head.php'?>
     <div class="info-top">
         <div class="container">
-            <div class="headline">Developer Integration</div>
+            <div class="headline"><?=t_('developers', 'title')?></div>
         </div>
     </div>
     <div class="container" style="margin-top: 30px;">
-        <p><?=DOMAIN?> can be used to obtain a free PASA for your users.
-        It can be used by exchanges or wallet developers or any other PascalCoin
-        related software that needs their users to have a PascalCoin account.
-        </p>
-        <p>The following table describes all available parameters that can be used for a request to <?=DOMAIN?>.</p>
+        <p><?=t_('developers', 'intro', DOMAIN)?></p>
+        <p><?=t_('developers', 'following', DOMAIN)?></p>
         <table>
             <thead>
             <tr>
-                <th>Parameter</th>
-                <th>Description</th>
+                <th><?=t_('developers', 'column_param')?></th>
+                <th><?=t_('developers', 'column_description')?></th>
             </tr>
             </thead>
             <tbody>
                 <tr>
                     <td width="20%"><code>afac</code></td>
-                    <td>
-                        The account number where a certain amount of pasc will be
-                        sent to if the account transfer was successful. Read it as
-                        affiliate account number. <strong>Please omit the checksum</strong>. See <a href="<?=DOMAIN?>/affiliate.php">Affilitate Page</a> for more info.</a>
-                    </td>
+                    <td><?= t_('developers', 'afac', DOMAIN . '/affiliate.php?lang=' . $_GET['lang']) ?></td>
                 </tr>
                 <tr>
                     <td><code>origin</code></td>
-                    <td>
-                        This value is for internal use to create statistics. You can
-                        use whatever value you want, but please stay with the same
-                        origin value in each request.
-                    </td>
+                    <td><?= t_('developers', 'origin') ?></td>
                 </tr>
                 <tr>
                     <td><code>phone_country_iso</code></td>
-                    <td>
-                        A 2 letter upper case ISO 3166 country code of the user
-                        related to the phone number (to select the correct phone
-                        region code).
-                        Click <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">here</a>
-                        for a list of available codes.
-                    </td>
+                    <td><?= t_('developers', 'phone_country_iso') ?></td>
                 </tr>
                 <tr>
                     <td><code>phone_country_number</code></td>
-                    <td>
-                        The international country calling code for the phone number. For example 1 for USA, 49 for germany and so on.
-                        Click <a href="https://en.wikipedia.org/wiki/List_of_country_calling_codes">here</a> for a complete list of codes.
-                    </td>
+                    <td><?= t_('developers', 'phone_country_number') ?></td>
                 </tr>
                 <tr>
-                    <td colspan="2">Please either use <code style="display: inline-block">phone_country_iso</code> or <code style="display: inline-block">phone_country_number</code> Do not use both at the same time.</td>
+                    <td colspan="2"><?= t_('developers', 'please_use') ?></td>
                 </tr>
                 <tr>
                     <td><code>phone</code></td>
-                    <td>
-                        The phone number of the user, <strong>without</strong> any country information.
-                    </td>
+                    <td><?= t_('developers', 'phone') ?></td>
                 </tr>
                 <tr>
                     <td><code>public_key</code></td>
-                    <td>The public key of the user. The PASA account will be transferred to this key.</td>
+                    <td><?= t_('developers', 'public_key') ?></td>
                 </tr>
                 <tr>
                     <td><code>state</code></td>
-                    <td>An internal state value to make sure the returning request is from you, just like OAuth2 states.</td>
+                    <td><?= t_('developers', 'state') ?></td>
                 </tr>
                 <tr>
                     <td><code>redirect</code></td>
-                    <td>An Url where the user will be redirected to after the PASA account was assigned to him.</td>
+                    <td><?= t_('developers', 'redirect') ?></td>
                 </tr>
             </tbody>
         </table>
-        <h3>Link Builder</h3>
+        <h3><?= t_('developers', 'link_builder') ?></h3>
         <div id="link-builder">
             <div class="row">
                 <div class="six columns">
                     <div class="row">
                         <div class="twelve columns">
-                            <label for="origin">Affiliate account number</label>
+                            <label for="origin"><?= t_('developers', 'label_afac') ?></label>
                             <input type="text" class="u-full-width" name="afac" id="afac" value="">
                         </div>
                         <div class="twelve columns">
-                            <label for="origin">Origin</label>
+                            <label for="origin"><?= t_('developers', 'label_origin') ?></label>
                             <input type="text" class="u-full-width" name="origin" id="origin" value="">
                         </div>
                         <div class="twelve columns">
-                            <label for="phone_country_iso">Phone country ISO</label>
+                            <label for="phone_country_iso"><?= t_('developers', 'label_phone_country_iso') ?></label>
                             <input type="text" class="u-full-width" name="phone_country_iso" id="phone_country_iso" value="">
                         </div>
                         <div class="twelve columns">
-                            <label for="phone_country_number">Phone international calling code</label>
+                            <label for="phone_country_number"><?= t_('developers', 'label_phone_country_number') ?></label>
                             <input type="text" class="u-full-width" name="phone_country_number" id="phone_country_number" value="">
                         </div>
                         <div class="twelve columns">
-                            <label for="phone">Phone number</label>
+                            <label for="phone"><?= t_('developers', 'label_phone_number') ?></label>
                             <input type="text" class="u-full-width" name="phone" id="phone" value="">
                         </div>
                         <div class="twelve columns">
-                            <label for="public_key">Public Key</label>
-                            <textarea class="u-full-width" placeholder="Public key value.." id="public_key" name="public_key"></textarea>
+                            <label for="public_key"><?= t_('developers', 'label_public_key') ?></label>
+                            <textarea class="u-full-width" id="public_key" name="public_key"></textarea>
                         </div>
                         <div class="twelve columns">
-                            <label for="state">State</label>
+                            <label for="state"><?= t_('developers', 'label_state') ?></label>
                             <input type="text" class="u-full-width" name="state" id="state" value="">
                         </div>
                         <div class="twelve columns">
-                            <label for="redirect">Redirect URL</label>
+                            <label for="redirect"><?= t_('developers', 'label_redirect') ?></label>
                             <input type="text" class="u-full-width" name="redirect" id="redirect" value="">
                         </div>
                     </div>
                 </div>
                 <div class="six columns">
                     <code id="link"><?=DOMAIN?></code>
-                    <button id="copy-to-clipboard" class="button button-primary">Copy to clipboard</button>
-                    <a class="button button-primary" href="<?=DOMAIN?>" target="_blank" id="try-it">Try it</a>
+                    <button id="copy-to-clipboard" class="button button-primary"><?= t_('developers', 'clipboard') ?></button>
+                    <a class="button button-primary" href="<?=DOMAIN?>?lang=<?=$_GET['lang']?>" target="_blank" id="try-it"><?= t_('developers', 'try_it') ?></a>
                 </div>
             </div>
         </div>

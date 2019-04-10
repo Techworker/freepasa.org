@@ -5,62 +5,52 @@ include './../bootstrap.php';
 <?php include __DIR__ . '/include/head.php'?>
     <div class="info-top">
         <div class="container">
-            <div class="headline">Affiliate &amp; Integration</div>
+            <div class="headline"><?=t_('affiliate', 'title') ?></div>
         </div>
     </div>
     <div class="container" style="margin-top: 30px;">
-        <p><?=DOMAIN?> runs an affiliate program that you can use to earn some PascalCoin by linking to this page.</p>
-        <p class="error-info"><i class="fas fa-exclamation-circle"></i> The payout amount is <?=(AFFILIATE_AMOUNT/10000)?> PASC for each successfully distributed pasa right now. This value might vary in the future without any further notice.</p>
-        <p class="error-info"><i class="fas fa-exclamation-circle"></i> The affiliate program is active as long as there are funds available to run it. It can be closed down without any further notice.</p>
-        <p>
-            The minimum required parameter to earn money is the <code style="display: inline-block">afac</code> parameter. This the account number
-            where the reward will be sent to, as soon as a PASA was successfully distributed.
-        </p>
-        <p>The following table describes all available parameters that can be used for a request.</p>
+        <p><?=t_('affiliate', 'para_1', DOMAIN)?></p>
+        <p class="error-info"><i class="fas fa-exclamation-circle"></i> <?=t_('affiliate', 'payout', (AFFILIATE_AMOUNT/10000)) ?></p>
+        <p class="error-info"><i class="fas fa-exclamation-circle"></i> <?=t_('affiliate', 'notice') ?></p>
+        <p><?=t_('affiliate', 'min') ?></p>
+        <p><?=t_('affiliate', 'follow') ?></p>
         <table>
             <thead>
             <tr>
-                <th>Parameter</th>
-                <th>Description</th>
+                <th><?=t_('affiliate', 'param') ?></th>
+                <th><?=t_('affiliate', 'desc') ?></th>
             </tr>
             </thead>
             <tbody>
                 <tr>
                     <td width="20%"><code>afac</code></td>
-                    <td>
-                        The account number where a certain amount of pasc will be
-                        sent to if the account transfer was successful. Read it as
-                        affiliate account number. <strong>Please omit the checksum</strong>.</td>
+                    <td><?=t_('affiliate', 'afac_desc')?></td>
                 </tr>
                 <tr>
                     <td><code>origin</code></td>
-                    <td>
-                        This value is for internal use to create statistics. You can
-                        use whatever value you want, but please stay with the same
-                        origin value in each request.
-                    </td>
+                    <td><?=t_('affiliate', 'origin_desc')?></td>
                 </tr>
             </tbody>
         </table>
-        <h3>Link Builder</h3>
+        <h3><?=t_('affiliate', 'lb')?></h3>
         <div id="link-builder">
             <div class="row">
                 <div class="six columns">
                     <div class="row">
                         <div class="twelve columns">
-                            <label for="origin">Affiliate account number</label>
+                            <label for="origin"><?=t_('affiliate', 'aan')?></label>
                             <input type="text" class="u-full-width" name="afac" id="afac" value="">
                         </div>
                         <div class="twelve columns">
-                            <label for="origin">Origin</label>
+                            <label for="origin"><?=t_('affiliate', 'origin')?></label>
                             <input type="text" class="u-full-width" name="origin" id="origin" value="">
                         </div>
                     </div>
                 </div>
                 <div class="six columns">
                     <code id="link"><?=DOMAIN?></code>
-                    <button id="copy-to-clipboard" class="button button-primary">Copy to clipboard</button>
-                    <a class="button button-primary" href="<?=DOMAIN?>" target="_blank" id="try-it">Try it</a>
+                    <button id="copy-to-clipboard" class="button button-primary"><?=t_('affiliate', 'copy')?></button>
+                    <a class="button button-primary" href="<?=DOMAIN?>?lang=<?=$_GET['lang']?>" target="_blank" id="try-it"><?=t_('affiliate', 'try')?></a>
                 </div>
             </div>
         </div>

@@ -5,21 +5,21 @@ include __DIR__ . './../bootstrap.php';
 $verificationIdEncoded = $_GET['id'];
 $verificationId = \Helper\decodeId($verificationIdEncoded);
 if($verificationId === null) {
-    return header('Location: ' . DOMAIN . '/?error=true&code=not_found');
+    return header('Location: ' . DOMAIN . '/?error=true&code=not_found&lang=' . $_GET['lang']);
 }
 $verification = \Database\Verifications\getVerification($verificationId);
 
 // send to home if there is no such entry
 if($verification === false) {
-    return header('Location: ' . DOMAIN . '/?error=true&code=not_found');
+    return header('Location: ' . DOMAIN . '/?error=true&code=not_found&lang=' . $_GET['lang']);
 }
 
 if($verification->verification_success == 1) {
-    return header('Location: ' . DOMAIN . '/success.php?id=' . \Helper\encodeId($verification->id));
+    return header('Location: ' . DOMAIN . '/success.php?id=' . \Helper\encodeId($verification->id) . '&lang=' . $_GET['lang']);
 }
 
 if((int)$verification->tries >= 3) {
-    return header('Location: ' . DOMAIN . '/?error=true&code=too_many_tries');
+    return header('Location: ' . DOMAIN . '/?error=true&code=too_many_tries&lang=' . $_GET['lang']);
 }
 
 $phoneInstance =  $phoneUtil->parse($verification->phone_number, $verification->country_iso);
@@ -45,7 +45,7 @@ if(isset($_POST['submit']))
         }
 
 
-        return header('Location: ' . DOMAIN . '/success.php?id=' . \Helper\encodeId($verification->id));
+        return header('Location: ' . DOMAIN . '/success.php?id=' . \Helper\encodeId($verification->id) . '&lang=' . $_GET['lang']);
     }
     \Database\Verifications\updateTries($verification->id);
     $error = $verificationResult . '. Please try again.';
@@ -70,7 +70,7 @@ $_SESSION["crsf_verify"] = md5(uniqid(mt_rand(), true));
     <?php endif; ?>
 
     <!-- The above form looks like this -->
-    <form method="post" action="<?=DOMAIN?>/verify.php?id=<?=$_GET['id']?>">
+    <form method="post" action="<?=DOMAIN?>/verify.php?id=<?=$_GET['id']?>&lang=<?=$_GET['lang']?>">
         <input type="hidden" name="crsf" value="<?=$_SESSION["crsf_verify"]?>" />
 
         <div class="row">
@@ -90,11 +90,11 @@ $_SESSION["crsf_verify"] = md5(uniqid(mt_rand(), true));
         leftSeconds--;
         if(leftSeconds < 0) {
             alert('Code expired, you need to start again. Sorry.');
-            window.location.href = '<?=DOMAIN; ?>';
-        }
-        document.getElementById('seconds').innerText = leftSeconds;
-    }, 1000);
+            window.location.href = '<?=DOMAIN; ?>?lang=<?=$_GET['lang']?>';
+            }
+            document.getElementById('seconds').innerText = leftSeconds;
+        }, 1000);
 
 
-</script>
-<?php include __DIR__ . '/include/foot.php'?>
+    </script>
+    <?php include __DIR__ . '/include/foot.php'?>

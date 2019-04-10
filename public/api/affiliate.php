@@ -24,6 +24,7 @@ foreach($verifications as $verification) {
     $data[] = [
         'time' => $verification['dt'],
         'block' => $verification['block'],
+        'account' => $verification['pasa'],
         'ophash' => $verification['affiliate_ophash'],
         'amount' => $verification['affiliate_amount'] / 10000,
     ];
