@@ -47,6 +47,12 @@ function rpc(string $method, array $params = [])
     die('Invalid result: ' . print_r($result, true));
 }
 
+function hasPasa($publicKey)
+{
+    return count(rpc('findaccounts', ['b58_pubkey' => $publicKey]));
+}
+
+
 function getDisbursableAccount()
 {
     $availableAccounts = rpc('getwalletaccounts', [
@@ -62,6 +68,7 @@ function getDisbursableAccount()
         }
         if(\Database\Verifications\isDisbursed($account['account']) === false &&
             $account['account'] != ACCOUNT_SIGNER &&
+            $account['account'] != ACCOUNT_FAUCET &&
             $account['account'] != ACCOUNT_AFFILIATE)
         {
             return $account;

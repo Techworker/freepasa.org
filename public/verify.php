@@ -48,7 +48,7 @@ if(isset($_POST['submit']))
         return header('Location: ' . DOMAIN . '/success.php?id=' . \Helper\encodeId($verification->id) . '&lang=' . $_GET['lang']);
     }
     \Database\Verifications\updateTries($verification->id);
-    $error = $verificationResult . '. Please try again.';
+    $error = $verificationResult . '. ' . t_('verify', 'try_again');
 }
 
 $_SESSION["crsf_verify"] = md5(uniqid(mt_rand(), true));
@@ -58,12 +58,12 @@ $_SESSION["crsf_verify"] = md5(uniqid(mt_rand(), true));
 <?php include __DIR__ . '/include/head.php'?>
 <div class="info-top">
     <div class="container">
-        <div class="headline">Check your phone now.</div>
+        <div class="headline"><?= t_('verify', 'headline') ?></div>
     </div>
 </div>
 <div class="container" style="margin-top: 30px;">
 
-    <p>We sent a SMS with a code to <?=$phoneUtil->format($phoneInstance, \libphonenumber\PhoneNumberFormat::INTERNATIONAL)?>. This can take up to 5 minutes, so please be patient.</p>
+    <p><?=t_('verify', 'message', $phoneUtil->format($phoneInstance, \libphonenumber\PhoneNumberFormat::INTERNATIONAL))?></p>
 
     <?php if($error !== null) : ?>
         <p class="error-info"><i class="fas fa-exclamation-circle"></i> <?=$error?></p>
@@ -75,13 +75,15 @@ $_SESSION["crsf_verify"] = md5(uniqid(mt_rand(), true));
 
         <div class="row">
             <div class="twelve columns">
-                <label for="code">Enter code from SMS:</label>
-                <input type="number" class="u-full-width" name="code" id="code" value="" placeholder="Enter 4 digit code..">
+                <label for="code"><?=t_('verify', 'enter_code')?></label>
+                <input type="number" class="u-full-width" name="code" id="code" value="">
             </div>
         </div>
-        <input class="button-primary" type="submit" name="submit" value="Verify">
+        <input class="button-primary" type="submit" name="submit" value="<?=t_('verify', 'button_verify'); ?>">
     </form>
-    <p>The code expires in <span id="seconds" data-seconds="<?=$verification->twilio_expires - time()?>"><?= $verification->twilio_expires - time()?></span> seconds. After that you will have to enter your data again.</p></p>
+    <p>
+        <?=t_('verify', 'code_expires_in', '<span id="seconds" data-seconds="' . ($verification->twilio_expires - time()) . '">' . ($verification->twilio_expires - time()) . '</span>')?>
+    </p>
 </div>
 <script>
     var initialSeconds = parseInt(document.getElementById('seconds').getAttribute('data-seconds'), 10);
@@ -89,7 +91,7 @@ $_SESSION["crsf_verify"] = md5(uniqid(mt_rand(), true));
     setInterval(function() {
         leftSeconds--;
         if(leftSeconds < 0) {
-            alert('Code expired, you need to start again. Sorry.');
+            alert('<?=t_('verify', 'expired')?>');
             window.location.href = '<?=DOMAIN; ?>?lang=<?=$_GET['lang']?>';
             }
             document.getElementById('seconds').innerText = leftSeconds;

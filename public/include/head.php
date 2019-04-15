@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="<?=$_t['lang']['iso_lang']?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,7 +17,6 @@
             <link rel="alternate" hreflang="<?= $key ?>" href="<?=str_replace('--LANG--', $key, $link) ?>" />
         <?php endif; ?>
     <?php endforeach; ?>
-
 </head>
 
 <body>

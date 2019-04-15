@@ -15,6 +15,7 @@ use Authy\AuthyApi;
  */
 function sendVerificationCode($phone, $countryNumber)
 {
+    global $_t;
     if(DEBUG_TWILIO) {
         return [
             'uuid' => vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex(openssl_random_pseudo_bytes(16)), 4)),
@@ -23,7 +24,7 @@ function sendVerificationCode($phone, $countryNumber)
     }
 
     $authy = new AuthyApi(AUTHY_API_KEY);
-    $result = $authy->phoneVerificationStart($phone, $countryNumber, 'sms');
+    $result = $authy->phoneVerificationStart($phone, $countryNumber, 'sms', 4, $_t['lang']['iso_lang']);
     if($result->ok()) {
         return [
             'uuid' => $result->bodyvar('uuid'),

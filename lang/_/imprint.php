@@ -1,5 +1,4 @@
-<?php
-
-return [
-    'title' => 'Imprint',
-];
+<?php return array (
+  'title' => '_',
+  'text' => '',
+);

@@ -1,0 +1,17 @@
+<?php return array (
+  'title' => 'Affiliate Integration',
+  'para_1' => '%s betreibt ein einfaches Affiliate Programm, bei dem man mit Pascal belohnt wird, wenn jemand auf Ihren link klickt.',
+  'payout' => 'Der gezahlte Betrag ist %s PASC für jeden erfolgreich verteilten Account. Dieser Wert kann mit der Zeit variieren, ohne dass dies explizit mitgeteilt wird.',
+  'notice' => 'Das Affiliate-Programm bleibt so lange aktiv bis alle Resourcen aufgebraucht sind. Es kann zu jeder Zeit deaktiviert werden.',
+  'min' => 'Sie müssen mindestens the <code style="display: inline-block">afac</code> Parameter setzen um eine Belohnung zu erhalten. Der Parameter muss den Account beinhalten, an den die Belohnung gesendet wird.',
+  'follow' => 'Die folgende Tabelle beschreibt die zur Verfügung stehenden Parameter, die für eine Anfrage genutzt werden können.',
+  'param' => 'Parameter',
+  'desc' => 'Beschreibung',
+  'afac_desc' => 'Der Account, an den die Belohnung gesendet wird (Affiliate) <strong>Bitte lassen Sie die Checksumme weg.</strong>.',
+  'origin_desc' => 'Dieser Wert ist für interne Statistiken. Sie können einen beliebigen Wert einfügen, aber bitte immer den selben.',
+  'lb' => 'Link-Builder',
+  'aan' => 'Affiliate Account Nummer',
+  'origin' => 'Herkunft',
+  'copy' => 'In die Zwischenablage kopieren',
+  'try' => 'Ausprobieren',
+);

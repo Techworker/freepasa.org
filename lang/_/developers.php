@@ -1,10 +1,27 @@
-<?php
-
-return [
-    'title' => 'Developer Integration',
-    'para1' => 'The PASA service is a free service provided by the PascalCoin foundation. It allows you to obtain a free PASA account at no cost.',
-    'para2' => 'Your phone number will be saved (hashed) on the server after the PASA is distributed successfully. If the verification fails for whatever reason, it will be deleted after 1 hour.',
-    'para3' => 'It uses twilio as a SMS service provider. For more info on this service please see the <a href="https://www.twilio.com" target="_blank">twilio homepage.</a>',
-    'para4' => 'The source code of this service is open sourced and accessible <a href="https://github.com/Techworker/freepasa.org">here</a>.',
-    'back' => 'Back to home'
-];
+<?php return array (
+  'title' => '_',
+  'intro' => '_',
+  'following' => '_',
+  'column_param' => '_',
+  'column_description' => '_',
+  'afac' => '_',
+  'origin' => '_',
+  'phone_country_iso' => '_',
+  'phone_country_number' => '_',
+  'please_use' => '_',
+  'phone' => '_',
+  'public_key' => '_',
+  'state' => '_',
+  'redirect' => '_',
+  'link_builder' => '_',
+  'label_afac' => '_',
+  'label_origin' => '_',
+  'label_phone_country_iso' => '_',
+  'label_phone_country_number' => '_',
+  'label_phone_number' => '_',
+  'label_public_key' => '_',
+  'label_state' => '_',
+  'label_redirect' => '_',
+  'clipboard' => '_',
+  'try_it' => '_',
+);

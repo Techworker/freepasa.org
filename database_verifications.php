@@ -83,6 +83,7 @@ function updateMissingBlocks()
 function getDisbursed() {
     return \ORM::forTable('verifications')
             ->where('verification_success', 1)
+            ->orderByDesc('block')
             ->findMany();
 }
 

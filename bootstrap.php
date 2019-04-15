@@ -35,6 +35,48 @@ register_shutdown_function(function() {
     \Pascal\lock();
 });
 
+
+$link = $_SERVER['REQUEST_URI'];
+$parsedUrl = parse_url($link);
+parse_str($parsedUrl['query'], $parsedParams);
+$parsedParams['lang'] = '--LANG--';
+$link = DOMAIN . $parsedUrl['path'] . '?' . http_build_query($parsedParams);
+
+$supportedLanguages = include(__DIR__ . '/lang/supported.php');
+$_t = ['fallback' => include(__DIR__ . '/lang/' . $supportedLanguages['fallback'] . '.php')];
+
+if(!isset($_GET['lang']))
+{
+    if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+        $headerLocales = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+        foreach ($headerLocales as $locale) {
+            $language = substr($locale, 0, 2);
+            if(isset($supportedLanguages['all'][$locale])) {
+                return header('Location: ' . str_replace('--LANG--', $locale, $link));
+            }
+
+            if(isset($supportedLanguages['all'][$language])) {
+                return header('Location: ' . str_replace('--LANG--', $locale, $link));
+            }
+        }
+    }
+
+    return header('Location: ' . str_replace('--LANG--', $supportedLanguages['fallback'], $link));
+}
+
+
+if(isset($_GET['lang']) && isset($supportedLanguages['all'][$_GET['lang']])) {
+    $_t['active'] = include(__DIR__ . '/lang/' . $supportedLanguages['all'][$_GET['lang']]['folder'] . '.php');
+    $_t['lang'] = $supportedLanguages['all'][$_GET['lang']];
+} else {
+    $_t['active'] = include(__DIR__ . '/lang/' . $supportedLanguages['fallback'] . '.php');
+    $_GET['lang'] = $supportedLanguages['fallback'];
+    $_t['lang'] = $supportedLanguages['all'][$supportedLanguages['fallback']];
+}
+
+
+include(__DIR__ . '/lang/translate.php');
+
 // clean up database
 \Database\Verifications\deleteOld();
 \Database\Verifications\updateMissingBlocks();

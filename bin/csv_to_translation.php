@@ -2,41 +2,26 @@
 
 $language = trim($_SERVER['argv'][1]);
 
-$translationBase = include(__DIR__ . '/../lang/en.php');
-$targetFile = __DIR__ . '/../lang/' . $language . '.php';
+$translation = [];
 
-$translationTarget = [];
-if(file_exists($targetFile)) {
-    $translationTarget = include($targetFile);
-}
-
-$csv = [];
-foreach($translationBase as $area => $translations) {
-    if(!isset($translationTarget[$area])) {
-        $translationTarget[$area] = [];
-    }
-
-    foreach($translations as $key => $translation) {
-        $csv[] = [
-            'area' => $area,
-            'key' => $key,
-            'original' => $translation,
-            'translation' => ''
-        ];
-
-        if(isset($translationTarget[$area][$key])) {
-            $csv[count($csv) - 1]['translation'] = $translationTarget[$area][$key];
+$first = true;
+if (($handle = fopen($language . '.csv', 'r')) !== false) {
+    while (($data = fgetcsv($handle, 1000, ',')) !== false) {
+        if($first) {
+            $first = false;
+            continue;
         }
+
+        if(!isset($translation[$data[0]])) {
+            $translation[$data[0]] = [];
+        }
+        $translation[$data[0]][$data[1]] = $data[2];
+
     }
+    fclose($handle);
 }
 
-$fp = fopen($language . '.csv', 'w');
-
-fputcsv($fp, ["Area", "Key", "Original", "Translation"]);
-foreach ($csv as $fields) {
-    fputcsv($fp, $fields);
+foreach($translation as $area => $translations) {
+    $exp = var_export($translations, true);
+    file_put_contents(__DIR__ . '/../lang/' . $language . '/' . $area . '.php', '<?php return ' . $exp . ';');
 }
-
-fclose($fp);
-
-print_r($csv);
