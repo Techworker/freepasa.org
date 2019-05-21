@@ -124,7 +124,7 @@ function exists(PhoneNumber $phone)
     }
 
     $disbursedVeridications = \ORM::forTable('verifications')
-        ->where('phone_last4', substr($phoneFormatted, -4))
+        ->where('phone_last4', substr(str_replace(' ', '', $phone->getNationalNumber()), -4))
         ->findMany();
 
     foreach($disbursedVeridications as $disbursedVeridication) {
