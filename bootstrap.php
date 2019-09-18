@@ -21,6 +21,7 @@ define('HASHIDS_SALT', getenv('HASHIDS_SALT'));
 define('AFFILIATE_AMOUNT', (int)getenv('AFFILIATE_AMOUNT'));
 define('FAUCET_AMOUNT', (int)getenv('FAUCET_AMOUNT'));
 define('WALLET_PASSWORD', getenv('WALLET_PASSWORD'));
+define('API_KEYS', explode(',', getenv('API_KEYS')));
 
 if(!DEBUG) {
     error_reporting(0);
@@ -38,14 +39,16 @@ register_shutdown_function(function() {
 
 $link = $_SERVER['REQUEST_URI'];
 $parsedUrl = parse_url($link);
-parse_str($parsedUrl['query'], $parsedParams);
+if(isset($parsedUrl['query'])) {
+    parse_str($parsedUrl['query'], $parsedParams);
+}
 $parsedParams['lang'] = '--LANG--';
 $link = DOMAIN . $parsedUrl['path'] . '?' . http_build_query($parsedParams);
 
 $supportedLanguages = include(__DIR__ . '/lang/supported.php');
 $_t = ['fallback' => include(__DIR__ . '/lang/' . $supportedLanguages['fallback'] . '.php')];
 
-if(!isset($_GET['lang']))
+if(!isset($_GET['lang']) && substr($_SERVER['REQUEST_URI'], 0, 4) !== '/api')
 {
     if (isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
         $headerLocales = explode(',', $_SERVER['HTTP_ACCEPT_LANGUAGE']);

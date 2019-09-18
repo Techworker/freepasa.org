@@ -1,56 +1,56 @@
 <?php
 
-throw new \Exception('inactive');
+use function Helper\jsonApiMessage;
 
-use function Twilio\sendVerificationCode;
+throw new \Exception("not active");
 
 include './../../../bootstrap.php';
 
 header('Content-Type: application/json');
 
-function jsonMessage($status, $errors, $id)
-{
-    die(json_encode([
-        'request_id' => $id !== null ? \Helper\encodeId($id) : null,
-        'status' => $status,
-        'errors' => $errors
-    ]));
+// check that the api key is given
+if(!isset($_GET['api_key'])) {
+    jsonApiMessage('error', ['missing_api_key'], null);
 }
 
-$submitErrors = [];
-
-if(!isset($_POST['request_id']) || $_POST['request_id'] === '') {
-    jsonMessage('error', ['request_id' => 'Dev-Error: Missing request_id.'], null);
+// check that the api key exists
+if(!in_array($_GET['api_key'], API_KEYS, true)) {
+    jsonApiMessage('error', ['wrong_api_key'], null);
 }
 
-if(!isset($_POST['code']) || $_POST['code'] === '') {
-    jsonMessage('error', ['request_id' => 'Dev-Error: Missing request_id.'], null);
+if(!isset($_GET['request_id'])) {
+    jsonApiMessage('error', ['missing_request_id'], null);
 }
 
-$verificationIdEncoded = $_POST['id'];
+if(!isset($_GET['code'])) {
+    jsonApiMessage('error', ['missing_code'], null);
+}
+
+$verificationIdEncoded = $_GET['request_id'];
 $verificationId = \Helper\decodeId($verificationIdEncoded);
 if($verificationId === null) {
-    jsonMessage('error', ['request_id' => 'Dev-Error: Invalid request_id.'], null);
+    jsonApiMessage('error', ['invalid_request_id'], null);
 }
 $verification = \Database\Verifications\getVerification($verificationId);
 
 // send to home if there is no such entry
 if($verification === false) {
-    jsonMessage('error', ['request_id' => 'Dev-Error: Unknown request_id.'], null);
+    jsonMessage('error', ['invalid_request_id'], null);
 }
 
 if($verification->verification_success == 1) {
-    jsonMessage('finished', [], $verification->id);
+    jsonApiMessage('success', [
+        'account' => $verification->pasa,
+        'ophash' => $verification->ophash,
+        'link' => DOMAIN . '/success.php?id=' . \Helper\encodeId($verification->id)
+    ], $verification->id);
 }
 
 if((int)$verification->tries >= 3) {
-    jsonMessage('error', ['code' => 'too many tries'], $verification->id);
+    jsonApiMessage('error', ['error_too_many_tries'], $verification->id);
 }
-/*
-$phoneInstance =  $phoneUtil->parse($verification->phone_number, $verification->country_iso);
 
-$error = null;
-$code = $_POST['code'];
+$code = $_GET['code'];
 
 $verificationResult = \Twilio\checkVerification($verification->phone_number, $verification->country_number, $code);
 if($verificationResult === true)
@@ -67,10 +67,7 @@ if($verificationResult === true)
         );
     }
 
+    jsonApiMessage('success', ['account' => $op['account'], 'ophash' => $op['ophash'], 'link' => DOMAIN . '/success.php?id=' . \Helper\encodeId($verification->id)]);
+}
 
-    return header('Location: ' . DOMAIN . '/success.php?id=' . \Helper\encodeId($verification->id) . '&lang=' . $_GET['lang']);
-}
-\Database\Verifications\updateTries($verification->id);
-    $error = $verificationResult . '. Please try again.';
-}
-*/
+jsonApiMessage('error', ['verification_failed'], $_GET['request_id']);

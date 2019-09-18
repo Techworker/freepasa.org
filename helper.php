@@ -27,3 +27,12 @@ function encodeId($id) {
     global $hashids;
     return $hashids->encode($id);
 }
+
+function jsonApiMessage($status, $errors, $id)
+{
+    die(json_encode([
+        'request_id' => $id !== null ? \Helper\encodeId($id) : null,
+        'status' => $status,
+        'data' => $errors
+    ]));
+}

@@ -1,108 +1,108 @@
 <?php
 
-throw new \Exception('inactive');
+use function Helper\jsonApiMessage;
+
+throw new \Exception("not active");
 
 include './../../../bootstrap.php';
 
 header('Content-Type: application/json');
 
-function jsonMessage($status, $errors, $id)
-{
-    die(json_encode([
-        'request_id' => $id !== null ? \Helper\encodeId($id) : null,
-        'status' => $status,
-        'errors' => $errors
-    ]));
-}
-
 $submitErrors = [];
 
 // current data, either from GET or then from POST
 $data = [
-    'origin' => 'API',
-    'iso' => '',
-    'phone' => '',
-    'public_key' => ''
+    'phone_iso' => '',
+    'phone_number' => '',
+    'public_key' => '',
 ];
 
-if (isset($_POST['phone_country_iso'])) {
-    $data['iso'] = $_POST['phone_country_iso'];
-}
-if (isset($_POST['phone_country_number'])) {
-    $number = (int)$_POST['phone_country_number'];
-    foreach($countries as $country) {
-        if($number === $country['number']) {
-            $data['iso'] = $country['iso'];
-        }
-    }
+// check that the api key is given
+if(!isset($_GET['api_key'])) {
+    jsonApiMessage('error', ['missing_api_key'], null);
 }
 
-if($data['iso'] === '') {
-    jsonMessage('error', ['iso' => 'Dev-Error: Missing phone_country_iso or phone_country_number parameter'], null);
+// check that the api key exists
+if(!in_array($_GET['api_key'], API_KEYS, true)) {
+    jsonApiMessage('error', ['wrong_api_key'], null);
 }
 
-if(!isset($_POST['origin']) || $_POST['origin'] === '') {
-    jsonMessage('error', ['origin' => 'Dev-Error: Missing origin parameter'], null);
+// check that the iso is given
+if (!isset($_GET['phone_iso'])) {
+    jsonApiMessage('error', ['missing_phone_iso'], null);
 }
 
-if(!isset($_POST['public_key']) || $_POST['public_key'] === '') {
-    jsonMessage('error', ['public_key' => 'Dev-Error: Missing public_key parameter'], null);
+if(!isset($countries[$_GET['phone_iso']])) {
+    jsonApiMessage('error', ['invalid_phone_iso'], null);
 }
 
-if(!isset($_POST['phone']) || $_POST['phone'] === '') {
-    jsonMessage('error', ['phone' => 'Dev-Error: Missing phone parameter'], null);
+if(!isset($_GET['public_key'])) {
+    jsonApiMessage('error', ['missing_public_key'], null);
 }
 
-$data['phone'] = preg_replace('/[^0-9]/', '', (string)$_POST['phone']);
+if(!isset($_GET['phone_number'])) {
+    jsonApiMessage('error', ['missing_phone_number'], null);
+}
+
+$data['public_key'] = $_GET['public_key'];
+
+// get the iso code
+$data['phone_iso'] = strtoupper(substr($_GET['phone_iso'], 0, 2));
+
+
+// get the phone number
+$data['phone_number'] = preg_replace('/[^0-9]/', '', (string)$_GET['phone_number']);
+
 try {
-    $phoneInstance = $phoneUtil->parse($data['phone'], $data['iso']);
+    $phoneInstance = $phoneUtil->parse($data['phone_number'], $data['phone_iso']);
     $val = $phoneUtil->isValidNumber($phoneInstance);
     if ($val === false) {
-        $submitErrors['phone'] = t_('index', 'err_4');
+        jsonApiMessage('error', ['invalid_phone_number'], null);
     }
 } catch (\Exception $ex) {
-    $submitErrors['phone'] = $ex->getMessage();
+    jsonApiMessage('error', ['invalid_phone_number'], null);
 }
 
-$data['public_key'] = $_POST['public_key'];
+$data['public_key'] = $_GET['public_key'];
 try {
     \Pascal\decodePublicKey($data['public_key']);
     $existing = \Database\Verifications\hasPublicKey($data['public_key']);
     if($existing !== false) {
-        jsonMessage('exists_pubkey', [], $existing->id);
+        jsonApiMessage('error', ['public_key_already_used'], $existing->id);
     }
 
     $pasaCount = \Pascal\hasPasa($data['public_key']);
     if($pasaCount > 0) {
-        $submitErrors['pubkey'] = t_('index', 'err_7', $pasaCount);
+        jsonApiMessage('error', ['public_key_has_accounts'], null);
     }
 }
 catch(\Exception $ex) {
-    $submitErrors['pubkey'] = t_('index', 'err_8');
+    jsonApiMessage('error', ['invalid_public_key'], null);
 }
 
-// if there are no errors, we need to check if the number already
-// successfully requested a pasa and there are no ongoing requests
-if(count($submitErrors) === 0) {
-    $result = \Database\Verifications\exists($phoneInstance);
-    if($result !== false) {
-        if($result['type'] === \Database\Verifications\EXISTS_RUNNING) {
-            jsonMessage('pending', [], $result['verification']->id);
-        } else {
-            jsonMessage('exists_phone', [], $result['verification']->id);
-        }
-    }
-}
-
-if(count($submitErrors) === 0) {
-    $verification = \Database\Verifications\addVerification($phoneInstance, $data, $countries[$data['iso']]['number']);
-    $data = Twilio\sendVerificationCode($verification->phone_number, $verification->country_number);
-    if($data !== false) {
-        \Database\Verifications\setVerificationData($verification->id, $data['uuid'], $data['seconds']);
-        jsonMessage('success', [], $verification->id);
+$result = \Database\Verifications\exists($phoneInstance);
+if($result !== false) {
+    if($result['type'] === \Database\Verifications\EXISTS_RUNNING) {
+        jsonApiMessage('pending', [], $result['verification']->id);
     } else {
-        jsonMessage('error', [], $verification->id);
+        jsonApiMessage('error', ['already_disbursed'], $result['verification']->id);
     }
+}
+
+$verification = \Database\Verifications\addVerification($phoneInstance, [
+    'state' => '',
+    'iso' => $data['phone_iso'],
+    'phone' => $data['phone_number'],
+    'redirect' => '',
+    'origin' => $_GET['api_key'],
+    'public_key' => $data['public_key'],
+    'affiliate_account' => null
+], $countries[$data['phone_iso']]['number']);
+
+$data = Twilio\sendVerificationCode($verification->phone_number, $verification->country_number);
+if($data !== false) {
+    \Database\Verifications\setVerificationData($verification->id, $data['uuid'], $data['seconds']);
+    jsonApiMessage('success', [], $verification->id);
 } else {
-    jsonMessage('error', $submitErrors, null);
+    jsonApiMessage('error', ['unknown'], null);
 }
