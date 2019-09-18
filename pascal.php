@@ -116,7 +116,7 @@ function addPascalToAccount($account)
         // and the amount is bigger than the faucet amount
         if($balance * 10000 > FAUCET_AMOUNT) {
             // ..send the diff to the faucet
-            rpc('sendto', [
+            $result = rpc('sendto', [
                 'target' => ACCOUNT_FAUCET,
                 'sender' => $account,
                 'amount' => (($balance * 10000) - (FAUCET_AMOUNT)) / 10000,

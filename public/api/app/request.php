@@ -2,8 +2,6 @@
 
 use function Helper\jsonApiMessage;
 
-throw new \Exception("not active");
-
 include './../../../bootstrap.php';
 
 header('Content-Type: application/json');

@@ -36,7 +36,6 @@ register_shutdown_function(function() {
     \Pascal\lock();
 });
 
-
 $link = $_SERVER['REQUEST_URI'];
 $parsedUrl = parse_url($link);
 if(isset($parsedUrl['query'])) {

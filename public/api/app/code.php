@@ -2,8 +2,6 @@
 
 use function Helper\jsonApiMessage;
 
-throw new \Exception("not active");
-
 include './../../../bootstrap.php';
 
 header('Content-Type: application/json');
@@ -60,14 +58,14 @@ if($verificationResult === true)
     $op = \Pascal\sendPasa($verification->b58_pubkey, $verification->phone_last4);
     \Database\Verifications\setPasa($verification->id, $op['account'], $op['ophash']);
 
-    if($verification->affiliate_account !== '' && $verification->affiliate_account !== '0') {
+    /*if($verification->affiliate_account !== '' && $verification->affiliate_account !== '0') {
         \Database\Verifications\setAffiliateSuccess(
             $verification->id,
             \Pascal\sendAffiliate($verification->affiliate_account, $op['account'])
         );
-    }
+    }*/
 
-    jsonApiMessage('success', ['account' => $op['account'], 'ophash' => $op['ophash'], 'link' => DOMAIN . '/success.php?id=' . \Helper\encodeId($verification->id)]);
+    jsonApiMessage('success', ['account' => $op['account'], 'ophash' => $op['ophash'], 'link' => DOMAIN . '/success.php?id=' . \Helper\encodeId($verification->id)], $_GET['request_id']);
 }
 
 jsonApiMessage('error', ['verification_failed'], $_GET['request_id']);
