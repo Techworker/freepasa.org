@@ -22,6 +22,8 @@ define('AFFILIATE_AMOUNT', (int)getenv('AFFILIATE_AMOUNT'));
 define('FAUCET_AMOUNT', (int)getenv('FAUCET_AMOUNT'));
 define('WALLET_PASSWORD', getenv('WALLET_PASSWORD'));
 define('API_KEYS', explode(',', getenv('API_KEYS')));
+define('TEST_PUBKEYS', explode(',', getenv('TEST_PUBKEYS')));
+define('TEST_PHONES', explode(',', getenv('TEST_PHONES')));
 
 if(!DEBUG) {
     error_reporting(0);

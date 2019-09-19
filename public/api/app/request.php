@@ -51,6 +51,11 @@ $data['phone_iso'] = strtoupper(substr($_GET['phone_iso'], 0, 2));
 // get the phone number
 $data['phone_number'] = preg_replace('/[^0-9]/', '', (string)$_GET['phone_number']);
 
+$isTest = false;
+if(in_array($data['public_key'], TEST_PUBKEYS, true) || in_array($data['phone_number'], TEST_PHONES, true)) {
+    $isTest = true;
+}
+
 try {
     $phoneInstance = $phoneUtil->parse($data['phone_number'], $data['phone_iso']);
     $val = $phoneUtil->isValidNumber($phoneInstance);
@@ -65,12 +70,12 @@ $data['public_key'] = $_GET['public_key'];
 try {
     \Pascal\decodePublicKey($data['public_key']);
     $existing = \Database\Verifications\hasPublicKey($data['public_key']);
-    if($existing !== false) {
+    if($existing !== false && $isTest === false) {
         jsonApiMessage('error', ['public_key_already_used'], $existing->id);
     }
 
     $pasaCount = \Pascal\hasPasa($data['public_key']);
-    if($pasaCount > 0) {
+    if($pasaCount > 0 && $isTest === false) {
         jsonApiMessage('error', ['public_key_has_accounts'], null);
     }
 }
@@ -79,7 +84,7 @@ catch(\Exception $ex) {
 }
 
 $result = \Database\Verifications\exists($phoneInstance);
-if($result !== false) {
+if($result !== false && $isTest === false) {
     if($result['type'] === \Database\Verifications\EXISTS_RUNNING) {
         jsonApiMessage('pending', [], $result['verification']->id);
     } else {
