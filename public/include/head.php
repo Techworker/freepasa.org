@@ -24,9 +24,9 @@
     <div class="container">
         <div class="head<?=isset($headTitle) ? ' head-large' : ''?>">
             <?php if(isset($_GET['lang'])) : ?>
-                <a href="<?=DOMAIN?>?lang=<?=$_GET['lang'] ?>"><img src="<?=DOMAIN?>/assets/pascalcoin.png" /></a>
+                <a href="<?=DOMAIN?>?lang=<?=$_GET['lang'] ?>"><img src="<?=DOMAIN?>/assets/logo.svg" width="150"/></a>
             <?php else: ?>
-                <a href="<?=DOMAIN?>"><img src="<?=DOMAIN?>/assets/pascalcoin.png" /></a>
+                <a href="<?=DOMAIN?>"><img src="<?=DOMAIN?>/assets/logo.svg" /></a>
             <?php endif; ?>
 
 

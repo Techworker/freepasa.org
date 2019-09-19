@@ -1,6 +1,6 @@
 <?php return array (
   'title' => '开发者集成',
-  'intro' => '%s 可用于用户获取免费的PASA。 它可以被交易所或钱包开发者或任何其它需要其用户拥有PascalCoin账户的PascalCoin相关软件使用.',
+  'intro' => '%s 可用于用户获取免费的PASA。 它可以被交易所或钱包开发者或任何其它需要其用户拥有Pascal账户的Pascal相关软件使用.',
   'following' => '下表描述了可用于请求的所有可用参数 %s.',
   'column_param' => '参数',
   'column_description' => '描述',

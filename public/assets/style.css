@@ -62,7 +62,6 @@ html, body {
     }
     .head a img {
         float: left;
-        margin-left: -57px;
     }
     .head .title {
         float: right;

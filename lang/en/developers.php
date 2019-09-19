@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Developer Integration',
-    'intro' => '%s can be used to obtain a free PASA for your users. It can be used by exchanges or wallet developers or any other PascalCoin related software that needs their users to have a PascalCoin account.',
+    'intro' => '%s can be used to obtain a free PASA for your users. It can be used by exchanges or wallet developers or any other Pascal related software that needs their users to have a Pascal account.',
     'following' => 'The following table describes all available parameters that can be used for a request to %s.',
     'column_param' => 'Parameter',
     'column_description' => 'Description',

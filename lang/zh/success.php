@@ -7,7 +7,7 @@
   'refresh' => '刷新页面',
   'redirect' => '您的服务请求重新定向。单击按钮以重新定向:',
   'redirect_title' => '重新定向',
-  'discord' => '加入PascalCoin的Discord!',
+  'discord' => '加入Pascal的Discord!',
   'tx_details' => '交易详细信息:',
   'phone' => '电话:',
   'pasa' => 'PASA:',

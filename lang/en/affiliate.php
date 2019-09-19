@@ -2,7 +2,7 @@
 
 return [
     'title' => 'Affiliate &amp; Integration',
-    'para_1' => '%s runs an affiliate program that you can use to earn some PascalCoin by linking to this page.',
+    'para_1' => '%s runs an affiliate program that you can use to earn some Pascal by linking to this page.',
     'payout' => 'The payout amount is %s PASC for each successfully distributed pasa right now. This value might vary in the future without any further notice.',
     'notice' => 'The affiliate program is active as long as there are funds available to run it. It can be closed down without any further notice.',
     'min' => 'The minimum required parameter to earn money is the <code style="display: inline-block">afac</code> parameter. This the account number where the reward will be sent to, as soon as a PASA was successfully distributed.',
