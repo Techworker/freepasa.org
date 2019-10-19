@@ -58,7 +58,7 @@ function getDisbursableAccount()
     $availableAccounts = rpc('getwalletaccounts', [
         'b58_pubkey' => WALLET_PUBKEY,
         'start' => 0,
-        'max' => 10
+        'max' => 50
     ]);
 
     foreach($availableAccounts as $account) {
@@ -124,14 +124,16 @@ function addPascalToAccount($account)
                 'payload_method' => 'none'
             ]);
         } else {
-            // just send the delat
-            $result = rpc('sendto', [
-                'target' => $account,
-                'sender' => ACCOUNT_FAUCET,
-                'amount' => (FAUCET_AMOUNT / 10000) - $balance,
-                'payload' => encodePayload('freepasa.org / getting started with 0.0010'),
-                'payload_method' => 'none'
-            ]);
+            // just send the delta
+            if((FAUCET_AMOUNT / 10000) - $balance > 0) {
+                $result = rpc('sendto', [
+                    'target' => $account,
+                    'sender' => ACCOUNT_FAUCET,
+                    'amount' => (FAUCET_AMOUNT / 10000) - $balance,
+                    'payload' => encodePayload('freepasa.org / getting started with 0.0010'),
+                    'payload_method' => 'none'
+                ]);
+            }
         }
     } else {
         $result = rpc('sendto', [
