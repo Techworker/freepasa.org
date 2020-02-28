@@ -64,8 +64,12 @@ If your request was successful, a response in the following format will be send:
 ``` json
 {
   "status": "success",
-  "data": {},
-  "request_id": "Hsdkjndjks"
+  "data": {
+     "account": "123-12",
+     "ophash": "abc",
+     "link": "explorer-link"
+  },
+  "request_id": "custom state id"
 }
 ```
 
