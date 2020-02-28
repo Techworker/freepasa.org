@@ -24,10 +24,29 @@ define('WALLET_PASSWORD', getenv('WALLET_PASSWORD'));
 define('API_KEYS', explode(',', getenv('API_KEYS')));
 define('TEST_PUBKEYS', explode(',', getenv('TEST_PUBKEYS')));
 define('TEST_PHONES', explode(',', getenv('TEST_PHONES')));
+define('OFFLINE', getenv('OFFLINE') === 'true');
+define('AFF_DO', getenv('AFF_DO'));
+define('AFF_TWILIO', getenv('AFF_TWILIO'));
+define('DISCORD_INVITE', getenv('DISCORD_INVITE'));
+
+// exchange..
+define('QTRADE__API_KEY', getenv('QTRADE__API_KEY'));
+define('QTRADE__PSEUDO_COUNTRY_CODE', getenv('QTRADE__PSEUDO_COUNTRY_CODE'));
 
 if(!DEBUG) {
     error_reporting(0);
     ini_set('display_errors', 0);
+}
+
+if(OFFLINE) {
+    if(substr($_SERVER['REQUEST_URI'], 0, 4) === '/api') {
+        \Helper\jsonApiMessage('error', ['offline'], null);
+    } else {
+        header('HTTP/1.1 503 Service Temporarily Unavailable');
+        header('Status: 503 Service Temporarily Unavailable');
+        header('Retry-After: 300');//300 seconds
+        die('Service offline.');
+    }
 }
 
 // start session
@@ -95,7 +114,7 @@ catch(\Exception $ex) {
     header('HTTP/1.1 503 Service Temporarily Unavailable');
     header('Status: 503 Service Temporarily Unavailable');
     header('Retry-After: 300');//300 seconds
-    die('Node not running, please inform an admin on discord.');
+    die('Node not running, please inform an admin on discord. ' . DISCORD_INVITE);
 }
 
 \Pascal\unlock();

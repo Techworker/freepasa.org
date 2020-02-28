@@ -2,7 +2,7 @@
 
 return [
     'headline' => 'Check your phone now.',
-    'message' => 'We sent a SMS with a code to %s. This can take up to 5 minutes, so please be patient.',
+    'message' => 'We sent a SMS with a code to <code>%s</code>This can take up to 5 minutes, so please be patient.',
     'try_again' => 'Please try again.',
     'enter_code' => 'Enter code from SMS:',
     'button_verify' => 'Verify',

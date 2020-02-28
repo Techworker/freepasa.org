@@ -11,7 +11,7 @@ return [
     'err_8' => 'The public key you provided was not valid. Please check again.',
     'err_9' => 'You tried to enter the code more than 3 times and never supplied the correct code. Try again in 1 hour.',
     'err_10' => 'Somehow the page you were trying to access was not found. Try again.',
-    'title' => 'Official Pascal Account Distribution',
+    'title' => 'Pascal Account Distribution',
     'subtitle' => 'We have %s available to disburse!',
     'intro_1' => 'Please enter your phone number and your public key and follow the instructions to get a free Pascal PASA account. We will send a verification code to your provided phone number.',
     'intro_more' => 'For more info about privacy concerns see <a href="%s">here</a>.',

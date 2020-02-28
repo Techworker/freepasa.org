@@ -2,7 +2,7 @@
 
 return [
     'headline' => '请检查你的手机.',
-    'message' => '我们发了一个带验证码的短信到 %s. 这可能需要5分钟，所以请耐心等待.',
+    'message' => '我们发了一个带验证码的短信到 <code>%s</code>这可能需要5分钟，所以请耐心等待.',
     'try_again' => '请再试一次.',
     'enter_code' => '输入短信验证码:',
     'button_verify' => '验证',

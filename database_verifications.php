@@ -109,10 +109,8 @@ function deleteOld()
 
 const EXISTS_RUNNING = 'exists_running';
 const EXISTS_DISBURSED = 'exists_disbursed';
-function exists(PhoneNumber $phone)
+function exists($phoneFormatted, $nationalNumber)
 {
-    global $phoneUtil;
-    $phoneFormatted = $phoneUtil->format($phone, PhoneNumberFormat::INTERNATIONAL);
     $runningVerification = \ORM::forTable('verifications')
         ->where('phone_formatted', $phoneFormatted)
         ->findOne();
@@ -124,7 +122,7 @@ function exists(PhoneNumber $phone)
     }
 
     $disbursedVeridications = \ORM::forTable('verifications')
-        ->where('phone_last4', substr(str_replace(' ', '', $phone->getNationalNumber()), -4))
+        ->where('phone_last4', substr(str_replace(' ', '', $nationalNumber), -4))
         ->findMany();
 
     foreach($disbursedVeridications as $disbursedVeridication) {
@@ -155,6 +153,22 @@ function encryptPhone(int $verificationId)
         $phoneUtil->format($phoneInstance, PhoneNumberFormat::INTERNATIONAL),
         PASSWORD_DEFAULT
     );
+    $verification->phone_last4 = substr($verification->phone_number, -4);
+    $verification->phone_number = null;
+    $verification->phone_formatted = null;
+    $verification->save();
+}
+
+/**
+ * This will encrypt the phone number.
+ *
+ * @param int $verificationId
+ */
+function encryptExchange(int $verificationId)
+{
+    $verification = getVerification($verificationId);
+
+    $verification->phone_enc = password_hash($verification->phone_formatted, PASSWORD_DEFAULT);
     $verification->phone_last4 = substr($verification->phone_number, -4);
     $verification->phone_number = null;
     $verification->phone_formatted = null;
@@ -193,12 +207,12 @@ function setPasa(int $verificationId, string $pasa, string $opHash)
  * @return \ORM
  * @throws \Exception
  */
-function addVerification(PhoneNumber $phone, array $data, int $countryNumber)
+function addVerification(string $phone, array $data, int $countryNumber)
 {
     global $phoneUtil;
 
     $verification = \ORM::forTable('verifications')->create();
-    $verification->phone_formatted = $phoneUtil->format($phone, PhoneNumberFormat::INTERNATIONAL);
+    $verification->phone_formatted = $phone;
     $verification->country_number = $countryNumber;
     $verification->phone_number = $data['phone'];
     $verification->state = $data['state'];

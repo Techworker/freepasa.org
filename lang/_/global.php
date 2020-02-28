@@ -3,6 +3,7 @@
   'page_title' => '_',
   'page_description' => '_',
   'discord' => '_',
+  'twilio' => '_',
   'digitalocean' => '_',
   'footer_imprint' => '_',
   'footer_disclaimer' => '_',

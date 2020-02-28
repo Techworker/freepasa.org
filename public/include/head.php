@@ -30,8 +30,23 @@
 </head>
 
 <body>
+
+<div id="helper-wrapper">
+    <div style="background-color: #f79321" id="slideMeDown">
+        <div class="container">
+            <p style="margin: 0;  color: white;">
+                <strong>We need <a style="color: #f79321; background: white; padding: 5px;" href="<?=DOMAIN?>/help.php?lang=<?=$_GET['lang'] ?>">help</a> to keep this service alive. <a href="<?=DOMAIN?>/help.php?lang=<?=$_GET['lang'] ?>" style="color: #f79321; background: white; padding: 5px;">Click here for more info.</a></strong>
+            </p>
+        </div>
+    </div>
+</div>
 <div class="head-outer">
-    <div class="container">
+    <div class="container" style="overflow: ">
+        <div id="spacer">
+            <div id="spacer-1"></div>
+            <div id="spacer-2"></div>
+            <div id="spacer-3"></div>
+        </div>
         <div class="head<?=isset($headTitle) ? ' head-large' : ''?>">
             <?php if(isset($_GET['lang'])) : ?>
                 <a href="<?=DOMAIN?>?lang=<?=$_GET['lang'] ?>"><img src="<?=DOMAIN?>/assets/logo.svg" width="150"/></a>
@@ -53,6 +68,7 @@
             <?php endif; ?>
         </div>
     </div>
+
 </div>
 <div class="container" style="text-align: right">
 
@@ -64,3 +80,4 @@
     }
     ?>
 </div>
+<div class="barbershop-pole"></div>

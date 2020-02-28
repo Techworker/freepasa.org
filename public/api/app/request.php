@@ -1,5 +1,6 @@
 <?php
 
+use libphonenumber\PhoneNumberFormat;
 use function Helper\jsonApiMessage;
 
 include './../../../bootstrap.php';
@@ -83,7 +84,8 @@ catch(\Exception $ex) {
     jsonApiMessage('error', ['invalid_public_key'], null);
 }
 
-$result = \Database\Verifications\exists($phoneInstance);
+$phoneFormatted = $phoneUtil->format($phoneInstance, PhoneNumberFormat::INTERNATIONAL);
+$result = \Database\Verifications\exists($phoneFormatted, $phoneInstance->getNationalNumber());
 if($result !== false && $isTest === false) {
     if($result['type'] === \Database\Verifications\EXISTS_RUNNING) {
         jsonApiMessage('pending', [], $result['verification']->id);
@@ -92,7 +94,7 @@ if($result !== false && $isTest === false) {
     }
 }
 
-$verification = \Database\Verifications\addVerification($phoneInstance, [
+$verification = \Database\Verifications\addVerification($phoneUtil->format($phoneInstance, PhoneNumberFormat::INTERNATIONAL), [
     'state' => '',
     'iso' => $data['phone_iso'],
     'phone' => $data['phone_number'],

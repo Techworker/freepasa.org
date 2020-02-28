@@ -2,6 +2,8 @@
 
 include './../bootstrap.php';
 
+use libphonenumber\PhoneNumberFormat;
+
 // current data, either from GET or then from POST
 $data = [
     'origin' => 'web',
@@ -106,7 +108,8 @@ if(isset($_POST['submit']))
     // if there are no errors, we need to check if the number already
     // successfully requested a pasa and there are no ongoing requests
     if(count($submitErrors) === 0) {
-        $result = \Database\Verifications\exists($phoneInstance);
+        $phoneFormatted = $phoneUtil->format($phoneInstance, PhoneNumberFormat::INTERNATIONAL);
+        $result = \Database\Verifications\exists($phoneFormatted, $phoneInstance->getNationalNumber());
         if($result !== false) {
             if($result['type'] === \Database\Verifications\EXISTS_RUNNING) {
                 return header('Location: ' . DOMAIN . '/submit.php?id=' . \Helper\encodeId($result['verification']->id) . '&lang=' . $_GET['lang']);
@@ -117,7 +120,9 @@ if(isset($_POST['submit']))
     }
 
     if(count($submitErrors) === 0) {
-        $verification = \Database\Verifications\addVerification($phoneInstance, $data, $countries[$data['iso']]['number']);
+        $verification = \Database\Verifications\addVerification(
+            $phoneUtil->format($phoneInstance, PhoneNumberFormat::INTERNATIONAL), $data, $countries[$data['iso']]['number']
+        );
         return header('Location: ' . DOMAIN . '/submit.php?id=' . \Helper\encodeId($verification->id) . '&lang=' . $_GET['lang']);
     }
 }

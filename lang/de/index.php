@@ -9,7 +9,7 @@
   'err_8' => 'Der öffentliche Schlüssel ist nicht gültig.',
   'err_9' => 'Sie haben mehr als 3 mal einen falschen SMS-Code eingetragen - bitte versuchen Sie in 1 Stunde einen neuen Account zu beantragen.',
   'err_10' => 'Die Seite, die Sie aufrufen wollen, wurde nicht gefunden. Bitte versuchen Sie es erneut.',
-  'title' => 'Offizieller Pascal Account Verteiler',
+  'title' => 'Pascal Account Verteiler',
   'subtitle' => 'Wir haben %s accounts zu verteilen!',
   'intro_1' => 'Bitte tragen Sie Ihre Telefonnummer und Ihren öffentlichen Schlüssel ein und folgen den Instruktionen um einen kostenfreien Pascal PASA account zu bekommen. Wir senden Ihnen einen SMS mit einem Code an Ihre Telefonnummer, den Sie bestätigen müssen.',
   'intro_more' => 'Für mehr Infos zum Thema Datenschutz klicken Sie <a href="%s">hier</a>.',

@@ -3,7 +3,7 @@
   'sent' => 'PASA <strong>%s</strong> wurde an Ihren öffentlichen Schlüssel gesendet.',
   'mined' => 'Der Account wurde in Block %s übertragen.',
   'next' => 'Der Account wird bei Ihnen sichtbar sein, sobald der nächste Block abgeschlossen ist.',
-  'also' => 'Wir haben Ihnen zusätzlich <strong>%s PASC</strong> an Ihren neuen Account gesendet, damit Sie Pascal testen künnen.',
+  'also' => 'Wir haben Ihnen zusätzlich <strong>%s PASC</strong> an Ihren neuen Account gesendet, damit Sie Pascal testen können.',
   'refresh' => 'Aktualisieren',
   'redirect' => 'Klicken Sie auf den Button um weitergeleitet zu werden.',
   'redirect_title' => 'Zurück zum Anbieter',

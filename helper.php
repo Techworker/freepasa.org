@@ -30,6 +30,12 @@ function encodeId($id) {
 
 function jsonApiMessage($status, $errors, $id)
 {
+    if(in_array('offline', $errors)) {
+        header('HTTP/1.1 503 Service Temporarily Unavailable');
+        header('Status: 503 Service Temporarily Unavailable');
+        header('Retry-After: 300');//300 seconds
+    }
+
     die(json_encode([
         'request_id' => $id !== null ? \Helper\encodeId($id) : null,
         'status' => $status,
